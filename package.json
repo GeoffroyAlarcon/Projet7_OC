@@ -1,0 +1,16 @@
+{
+  "name": "p7",
+  "version": "1.0.0",
+  "description": "Projet 7 OpenClassroomms",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Geoffroy",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/cli": "^11.0.1",
+    "bootstrap": "^4.5.3",
+    "express": "^4.17.1"
+  }
+}
