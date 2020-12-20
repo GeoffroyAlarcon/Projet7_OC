@@ -25,7 +25,9 @@ this.userForm = this.formBuilder.group(
    prenom: "",
    nom: "",
    email: "",
-   departement:""
+   departement:"",
+   peusdo:"",
+   motDePasse:""
 }
 
 )
@@ -36,8 +38,10 @@ onSubmitForm() {
     formValue['nom'],
     formValue['prenom'],
     formValue['email'],
-    formValue['departement']
-  );
+    formValue['departement'],
+    formValue['pseudo'],
+    formValue['motDePasse'],
+    );
   this.userService.addUser(newUser);
 
 }

@@ -1,19 +1,28 @@
-
+require("dotenv").config()
 const express = require('express')
 const bodyParser = require('body-parser') // Pour faciliter le traitement des données contenues dans le corp de la reqûete, le transformant en objet JSON
 const helmet = require("helmet")
-const mongoose = require('mongoose') // L'interface pour communiquer avec la BDD
 const path = require ('path') // Pour le middleware express static pour acceder au chemin du système de fichier
 
 
-
-mongoose.connect('mongodb+srv://utilisateur:test@Cluster0.eekgq.mongodb.net/test?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'))
-
 const app = express()
+
+var mysql = require('mysql');
+
+var db = mysql.createConnection({
+  host: "localhost",
+  user: process.env.DB_USER,
+  password:process.env.DB_PASS,
+});
+
+db.connect(function(err) {
+
+  if (err) throw err;
+  console.log("Connecté à la base de données MySQL!");
+
+});
+
+
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*') // On donne l'accès à toute origine '*'
