@@ -1,6 +1,6 @@
 create database Groupomania;
 use Groupomania;
-CREATE TABLE utilisateur
+CREATE TABLE utilisateurs
 (
     id INT PRIMARY KEY NOT NULL,
     nom VARCHAR(100),

@@ -3,27 +3,39 @@ const express = require('express')
 const bodyParser = require('body-parser') // Pour faciliter le traitement des données contenues dans le corp de la reqûete, le transformant en objet JSON
 const helmet = require("helmet")
 const path = require ('path') // Pour le middleware express static pour acceder au chemin du système de fichier
-
-
+const { Sequelize,DataTypes,Model } = require('sequelize')
 const app = express()
+const User = require('./models/user')
 
-var mysql = require('mysql');
-
-var db = mysql.createConnection({
-  host: "localhost",
-  user: process.env.DB_USER,
-  password:process.env.DB_PASS,
-});
-
-db.connect(function(err) {
-
-  if (err) throw err;
-  console.log("Connecté à la base de données MySQL!");
-
+const sequelize = new Sequelize({
+  database:'groupomania',
+  username: 'root',
+  password:'root', 
+  host: 'localhost',
+  dialect: 'mysql'
 });
 
 
+    async  function sequentialStart() {
+           sequelize.authenticate();
+          const users = await User.findAll({
+           raw:true 
+          });
+          console.log(users);
+    }
 
+    try{
+sequentialStart()
+    }
+catch(e){}
+    app.post('/users',(req,res,next) =>{
+console.log(req.body);
+res.status(201).json({
+message: "utilisateur enregistré"
+})
+
+
+}) 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*') // On donne l'accès à toute origine '*'
   res.setHeader(

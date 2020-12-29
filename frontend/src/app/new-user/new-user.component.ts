@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../services/user.service';
-
+import{Router} from '@angular/router'
 import { User } from '../models/user.model';
 @Component({
   selector: 'app-new-user',
@@ -13,7 +13,8 @@ export class NewUserComponent implements OnInit {
   userForm: FormGroup;
 
   constructor(private formBuilder : FormBuilder,              private userService: UserService,
-   ) { }
+  private router:Router 
+    ) { }
 
   ngOnInit() {
     
@@ -26,7 +27,7 @@ this.userForm = this.formBuilder.group(
    nom: "",
    email: "",
    departement:"",
-   peusdo:"",
+   pseudo:"",
    motDePasse:""
 }
 
@@ -42,7 +43,8 @@ onSubmitForm() {
     formValue['pseudo'],
     formValue['motDePasse'],
     );
+    console.log(newUser);
   this.userService.addUser(newUser);
-
+  this.router.navigate(['/users']);
 }
 }
