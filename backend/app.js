@@ -1,41 +1,13 @@
-require("dotenv").config()
-const express = require('express')
-const bodyParser = require('body-parser') // Pour faciliter le traitement des données contenues dans le corp de la reqûete, le transformant en objet JSON
-const helmet = require("helmet")
+require("dotenv").config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const helmet = require("helmet");
 const path = require ('path') // Pour le middleware express static pour acceder au chemin du système de fichier
-const { Sequelize,DataTypes,Model } = require('sequelize')
+const userRoutes = require('./routes/user');
+const { Sequelize,DataTypes,Model } = require('sequelize');
 const app = express()
-const User = require('./models/user')
-
-const sequelize = new Sequelize({
-  database:'groupomania',
-  username: 'root',
-  password:'root', 
-  host: 'localhost',
-  dialect: 'mysql'
-});
 
 
-    async  function sequentialStart() {
-           sequelize.authenticate();
-          const users = await User.findAll({
-           raw:true 
-          });
-          console.log(users);
-    }
-
-    try{
-sequentialStart()
-    }
-catch(e){}
-    app.post('/users',(req,res,next) =>{
-console.log(req.body);
-res.status(201).json({
-message: "utilisateur enregistré"
-})
-
-
-}) 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*') // On donne l'accès à toute origine '*'
   res.setHeader(
@@ -66,4 +38,5 @@ app.use(helmet.referrerPolicy());
 app.use(helmet.xssFilter());
 // end helmet
 
+app.use('/api/auth', userRoutes)
 module.exports = app;
