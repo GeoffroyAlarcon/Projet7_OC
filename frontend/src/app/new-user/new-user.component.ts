@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import{Router} from '@angular/router'
 import { User } from '../models/user.model';
@@ -23,12 +23,12 @@ export class NewUserComponent implements OnInit {
 initForm(){
 this.userForm = this.formBuilder.group(
 {
-   prenom: "",
-   nom: "",
-   email: "",
-   departement:"",
-   pseudo:"",
-   motDePasse:""
+   prenom:  ["",Validators.required],
+   nom: ["",Validators.required],
+   email: ["",[Validators.required, Validators.email]],
+   departement:["",Validators.required],
+   pseudo:["",Validators.required],
+   motDePasse:["",Validators.required],
 }
 
 )
