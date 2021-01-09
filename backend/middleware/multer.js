@@ -17,5 +17,3 @@ const storage = multer.diskStorage({
     callback(null, name + Date.now() + '.' + extension) // création du nom final
   }
 })
-
-module.exports = multer({ storage }).single('image')
