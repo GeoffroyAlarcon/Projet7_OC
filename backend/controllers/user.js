@@ -1,13 +1,15 @@
-  
+
 const conn = require('../mysqlConfig')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const User = require("../models/user")
 
 exports.signup = (req, res, next) => {
-  const user = req.body
+  const user = new User();
+  var values = [user.nom, user.prenom,user.email, user.pseudo, user.motDePasse, user.departement];
   bcrypt.hash(user.password, 10).then((hash) => {
     user.password = hash
-    conn.query('INSERT INTO users SET ?', user, function (
+    conn.query('INSERT INTO utilisateur(nom,prenom,email,pseudo,motDePasse,departement) VALUES ?', values, function (
       error,
       results,
       fields
@@ -30,7 +32,7 @@ exports.login = (req, res, next) => {
   const passReq = req.body.password
   if (userReq && passReq) {
     conn.query(
-      'SELECT * FROM groupomania.users WHERE username= ?',
+      'SELECT * FROM utilisateur WHERE pseudo = ?',
       userReq,
       function (_error, results, _fields) {
         if (results.length > 0) {

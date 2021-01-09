@@ -30,6 +30,10 @@ User.init({
   pseudo: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  motDePasse: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
   // Other model options go here
