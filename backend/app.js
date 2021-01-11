@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const helmet = require("helmet");
 const path = require ('path') // Pour le middleware express static pour acceder au chemin du système de fichier
 const userRoutes = require('./routes/user');
-const { Sequelize,DataTypes,Model } = require('sequelize');
 const app = express()
 
 

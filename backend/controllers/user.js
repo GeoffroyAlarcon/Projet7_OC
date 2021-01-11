@@ -5,27 +5,25 @@ const jwt = require('jsonwebtoken')
 const User = require("../models/user")
 
 exports.signup = (req, res, next) => {
-  const user = new User();
-  var values = [user.nom, user.prenom,user.email, user.pseudo, user.motDePasse, user.departement];
+
+  const user = new User() 
+
   bcrypt.hash(user.password, 10).then((hash) => {
     user.password = hash
-    conn.query('INSERT INTO utilisateur(nom,prenom,email,pseudo,motDePasse,departement) VALUES ?', values, function (
-      error,
-      results,
-      fields
-    ) {
-      if (error) {
-        // Si erreur de la requête
-        console.log(error) // La console du serveur affiche l'erreur
-        return res.status(400).json(error.sqlMessage)
-      } // Et retourne uniquement le message de l'erreur au front
-      return res.status(201).json({
-        message:
-          'Votre compte a bien été créé ! Vous pouvez maintenant vous connecter.'
-      })
-    })
-  })
-}
+    const user = new User(
+      "Castex",   "Jean","jean.castex@gmail.com", "test",'JeanJean', "commercial" );
+    console.log(user.nom)
+    if (err) throw err;
+  
+    console.log("Connected!");
+    var sql = "INSERT INTO utilisateur (nom, prenom,email,departement,motDePasse,pseudo) VALUES (?,?,?,?,?,?)";
+    conn.query(sql, [user.nom, user.prenom, user.email, user.departement, user.motDePasse, user.pseudo], function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+    });
+  });
+    }
+  
 
 exports.login = (req, res, next) => {
  
