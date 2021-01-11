@@ -9,7 +9,7 @@ drop table utilisateur;
     prenom VARCHAR(100),
     email VARCHAR(255) UNIQUE,
     motDePasse VARCHAR(100) not null,
-    Pseudo VARCHAR(200) UNIQUE,
+    pseudo VARCHAR(200) UNIQUE,
     administrateur tinyint NOT NULL DEFAULT '0',
     departement VARCHAR(100)
 ); 

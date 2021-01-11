@@ -1,4 +1,4 @@
-
+const User = require('./models/user')
 const mysql = require('mysql')
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -6,12 +6,14 @@ const conn = mysql.createConnection({
   password: process.env.DB_PASS,
   database: process.env.DB_DATABASE
 })
-conn.connect(function (err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack)
-    return
-  }
-  console.log('connected as id ' + conn.threadId)
-})
+conn.connect(function(err) {
 
+  conn.query("SELECT * FROM utilisateur", (err,rows,result) => {
+    if(err) throw err;
+    rows.forEach( (row) => {
+     const user = new User(`${row.prenom}`,`${row.nom}`,`${row.email}`,`${row.motDePasse}`,`${row.pseudo}`,`${row.departement}`);
+     console.log(user)
+    });
+});
+})
 module.exports = conn

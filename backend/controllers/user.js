@@ -3,6 +3,7 @@ const conn = require('../mysqlConfig')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require("../models/user")
+const { json } = require('express')
 
 exports.signup = (req, res, next) => {
   const user = req.body;
@@ -19,9 +20,44 @@ exports.signup = (req, res, next) => {
     }
 
 exports.login = (req, res, next) => {
- 
+    conn.query("SELECT * FROM where pseudo = ? and motDePasse = ?", (err,rows,result) => {
+      if (err) {
+        return res.status(400).json(error)
+      }
+      else{
+    
+        rows.forEach( (row) => {
+          const user = new User(`${row.prenom}`,`${row.nom}`,`${row.email}`,`${row.motDePasse}`,`${row.Pseudo}`,`${row.departement}`);
+          return res
+          .status(200)
+          .json({ user });
+       
+        });
+  
+      
+      }
+  });
 }
+exports.getAllUser = (req,res,next) =>{
 
+  conn.query("SELECT * FROM utilisateur", (err,rows,result) => {
+    if (err) {
+      return res.status(400).json(error)
+    }
+    else{
+      var users=[];
+      rows.forEach( (row) => {
+        const user = new User(`${row.prenom}`,`${row.nom}`,`${row.email}`,`${row.motDePasse}`,`${row.pseudo}`,`${row.departement}`);
+users.push(user); 
+    });
+
+    return res
+    .status(200)
+    .json({ users });
+ 
+    }
+});
+}
 exports.deleteUser = (req, res, next) => {
   conn.query(
     `DELETE FROM users WHERE id=${req.params.id}`,
