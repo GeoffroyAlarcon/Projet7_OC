@@ -5,15 +5,10 @@ const jwt = require('jsonwebtoken')
 const User = require("../models/user")
 
 exports.signup = (req, res, next) => {
+  const user = req.body;
+  console.log(user)
+  console.log("nom : " + user.email);
 
-  const user = new User() 
-
-  bcrypt.hash(user.password, 10).then((hash) => {
-    user.password = hash
-    const user = new User(
-      "Castex",   "Jean","jean.castex@gmail.com", "test",'JeanJean', "commercial" );
-    console.log(user.nom)
-    if (err) throw err;
   
     console.log("Connected!");
     var sql = "INSERT INTO utilisateur (nom, prenom,email,departement,motDePasse,pseudo) VALUES (?,?,?,?,?,?)";
@@ -21,9 +16,7 @@ exports.signup = (req, res, next) => {
       if (err) throw err;
       console.log("1 record inserted");
     });
-  });
     }
-  
 
 exports.login = (req, res, next) => {
  

@@ -36,6 +36,5 @@ app.use(helmet.permittedCrossDomainPolicies());
 app.use(helmet.referrerPolicy());
 app.use(helmet.xssFilter());
 // end helmet
-
 app.use('/api/auth', userRoutes)
 module.exports = app;

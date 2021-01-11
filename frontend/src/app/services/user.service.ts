@@ -15,8 +15,16 @@ constructor(private httpClient:HttpClient){}
   }
 
   addUser(user: User) {
-    this.httpClient.post('/users',this.users);
     this.users.push(user);
     this.emitUsers();
+    return this.httpClient.post('http://localhost:3000/api/auth/signup',user)
+    .subscribe(
+      () => {
+        console.log('Enregistrement terminé !');
+      },
+      (error) => {
+        console.log('Erreur ! : ' + error);
+      }
+    );
   }
 }
