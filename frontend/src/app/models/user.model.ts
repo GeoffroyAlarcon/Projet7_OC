@@ -1,10 +1,10 @@
 export class User{ 
-   prenom: string;
-   nom: string;
-  email: string;
+  prenom: string;
+  nom: string;
+ email: string;
    departement:string;
-   pseudo:string;
-   motDePasse:string;
+  pseudo:string;
+ motDePasse:string;
 
 constructor(
   email,    
@@ -20,7 +20,8 @@ this.email=email;
 this.departement=departement
 this.pseudo=pseudo;
 this.motDePasse=motDePasse;
-    };
+
+};
   
   
   }

@@ -1,7 +1,8 @@
+const jwt = require("jsonwebtoken");
 
 const conn = require('../mysqlConfig')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+
 const User = require("../models/user")
 
 exports.signup = (req, res, next) => {
@@ -12,7 +13,6 @@ exports.signup = (req, res, next) => {
     .then(hash => {
 
     user.motDePasse = hash
-
 
       console.log("Connected!");
       var sql = "INSERT INTO utilisateur (nom, prenom,email,departement,motDePasse,pseudo) VALUES (?,?,?,?,?,?)";
@@ -37,14 +37,22 @@ exports.login = (req, res, next) => {
 
         bcrypt.compare(req.body.motDePasse, `${row.motDePasse}`)
           .then(valid => {
-            if (!valid) {
+            if (!valid) 
+            
+            {
               return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
             else {
               const authUser = new User(`${row.prenom}`, `${row.nom}`, `${row.email}`, `${row.motDePasse}`, `${row.pseudo}`, `${row.departement}`);
-              return res
-                .status(200)
-                .json({ authUser });
+              return res.status(200).json({authUser,
+                token: jwt.sign(
+                  { authUser},
+                  'RANDOM_TOKEN_SECRET',
+                  { expiresIn: '24h' }
+                ) // ajout d'un token pour sécuriser la session
+              
+              
+              });
             }
           })
       })

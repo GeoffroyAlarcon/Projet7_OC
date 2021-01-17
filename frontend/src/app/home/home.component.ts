@@ -1,9 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { ResolveEnd, Router } from '@angular/router';
 import { User } from '../models/user.model';
-
+import { Observable } from 'rxjs/observable';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,10 +11,11 @@ import { User } from '../models/user.model';
 })
 export class HomeComponent implements OnInit {
   authForm: FormGroup;
+  users: User[];
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router,
+    private router: Router
   ) {}
   ngOnInit() {
     this.initForm();
@@ -27,20 +28,15 @@ export class HomeComponent implements OnInit {
   }
   onSubmitForm() {
     const formValue = this.authForm.value;
-    const authUser = new User(
-      formValue['email'],
-      formValue['motDePasse'],
-      null,
-      null,
-      null,
-      null
-    );
-
-this.userService.findUserByEmailAndPasseword(authUser);
-console.log(authUser)
-    }
-
-
+    console.log('hello world');
+    let user;
+    new Promise((resolve, reject) => {
+      user = this.userService.findUserByEmailAndPasseword(
+        formValue['email'],
+        formValue['motDePasse']
+      );
+      resolve;
+    });
+    console.log(user);
   }
-  
-
+}

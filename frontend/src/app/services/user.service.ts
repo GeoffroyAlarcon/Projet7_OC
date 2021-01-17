@@ -1,19 +1,23 @@
 import { User } from '../models/user.model';
 import { Subject } from 'rxjs/Subject';
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-@Injectable({
-  providedIn:"root"
-})
 
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
   private users: User[] = [];
-  
+
   constructor(private httpClient: HttpClient) {}
   userSubject = new Subject<User[]>();
 
   emitUsers() {
     this.userSubject.next(this.users.slice());
+  }
+  getUsers() {
+    this.emitUsers();
+    return this.users;
   }
 
   addUser(user: User) {
@@ -31,16 +35,27 @@ export class UserService {
       );
   }
 
-  findUserByEmailAndPasseword(user: User) {
-    this.emitUsers();
-    return this.httpClient.post('http://localhost:3000/api/auth/login', user).subscribe(
-        (data: User) => {
-          user = data
-return user
+   findUserByEmailAndPasseword(email: String, motDePasse: String) {
+let user;
+
+  user = new User(email, motDePasse, '', '', '', '');
+  this.httpClient
+      .post('http://localhost:3000/api/auth/login', user)
+      .subscribe(
+        (data) => {
+          console.log(data)
+          user.nom = data['authUser']['nom'];
+          user.departement = data['authUser']['departement'];
+          user.email = data['authUser']['email'];
+          user.prenom = data['authUser']['prenom'];
+          user.pseudo = data['authUser']['pseudo'];
         },
         (error) => {
           console.log('Erreur ! : ' + error);
         }
-      );
-    }
+      )
+  
+  return user;   
+  
+  }
 }
