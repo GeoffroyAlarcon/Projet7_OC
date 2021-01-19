@@ -35,11 +35,9 @@ export class HomeComponent implements OnInit {
         user = data['authUser'];
         sessionStorage.setItem('user', JSON.stringify(user));
         let test = sessionStorage.getItem('user');
-        console.log('Le test a été réalisé avec succès ' + test);
-    if(test !== null ){
-    this.router.navigate(["/homePage"])
-    }
-     
+        if (test !== null) {
+          this.router.navigate(['/homePage']);
+        }
       });
   }
 }
