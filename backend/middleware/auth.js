@@ -8,7 +8,9 @@ module.exports = (req, res, next) => {
     if (req.body.userId && req.body.userId !== userId) {
       throw 'Invalid user ID';
     } else {
-      next();
+console.log("connecion bien établie !") 
+     next();
+  
     }
   } catch {
     res.status(401).json({

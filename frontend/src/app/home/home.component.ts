@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { ResolveEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../models/user.model';
-import { Observable } from 'rxjs/observable';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -28,15 +28,18 @@ export class HomeComponent implements OnInit {
   }
   onSubmitForm() {
     const formValue = this.authForm.value;
-    console.log('hello world');
-    let user;
-    new Promise((resolve, reject) => {
-      user = this.userService.findUserByEmailAndPasseword(
-        formValue['email'],
-        formValue['motDePasse']
-      );
-      resolve;
-    });
-    console.log(user);
+    let user = new User();
+    this.userService
+      .findUserByEmailAndPasseword(formValue['email'], formValue['motDePasse'])
+      .subscribe((data) => {
+        user = data['authUser'];
+        sessionStorage.setItem('user', JSON.stringify(user));
+        let test = sessionStorage.getItem('user');
+        console.log('Le test a été réalisé avec succès ' + test);
+    if(test !== null ){
+    this.router.navigate(["/homePage"])
+    }
+     
+      });
   }
 }

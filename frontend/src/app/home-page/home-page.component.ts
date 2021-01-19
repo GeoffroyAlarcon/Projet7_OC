@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -8,11 +9,13 @@ import { UserService } from '../services/user.service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor( private userService : UserService) { }
+  constructor( private userService : UserService, private router:Router) { }
 
   ngOnInit(): void {
-let users =    this.userService.getUsers();
-
-  }
+    let authUser = sessionStorage.getItem('user');
+   console.log("Lle test a été réalisé avec succès " +JSON.parse(authUser).nom)
+   
+    
+    }
 
 }

@@ -1,7 +1,9 @@
 import { User } from '../models/user.model';
 import { Subject } from 'rxjs/Subject';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientJsonpModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
   private users: User[] = [];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
   userSubject = new Subject<User[]>();
 
   emitUsers() {
@@ -34,28 +36,23 @@ export class UserService {
         }
       );
   }
+  showUser() {
+    let test = sessionStorage.getItem('user');
 
-   findUserByEmailAndPasseword(email: String, motDePasse: String) {
-let user;
-
-  user = new User(email, motDePasse, '', '', '', '');
-  this.httpClient
-      .post('http://localhost:3000/api/auth/login', user)
-      .subscribe(
-        (data) => {
-          console.log(data)
-          user.nom = data['authUser']['nom'];
-          user.departement = data['authUser']['departement'];
-          user.email = data['authUser']['email'];
-          user.prenom = data['authUser']['prenom'];
-          user.pseudo = data['authUser']['pseudo'];
-        },
-        (error) => {
-          console.log('Erreur ! : ' + error);
-        }
-      )
-  
-  return user;   
-  
+    return test;
   }
+  findUserByEmailAndPasseword(email: String, motDePasse: String) {
+    return  this.httpClient
+        .post('http://localhost:3000/api/auth/login', { email, motDePasse })
+       
+  }
+
+disconect(){
+sessionStorage.removeItem("user");
+this.router.navigate(["/"])
+}
+deleteUser(user:String){
+return this.httpClient.delete('http://localhost:3000/api/auth/deleteUser')
+}
+
 }

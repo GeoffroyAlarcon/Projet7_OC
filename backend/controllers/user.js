@@ -43,7 +43,7 @@ exports.login = (req, res, next) => {
               return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
             else {
-              const authUser = new User(`${row.prenom}`, `${row.nom}`, `${row.email}`, `${row.motDePasse}`, `${row.pseudo}`, `${row.departement}`);
+              const authUser = new User(`${row.id}`,    `${row.prenom}`, `${row.nom}`, `${row.email}`, `${row.motDePasse}`, `${row.pseudo}`, `${row.departement}`);
               return res.status(200).json({authUser,
                 token: jwt.sign(
                   { authUser},
@@ -64,7 +64,7 @@ exports.login = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
 conn.query(
-  `DELETE FROM users WHERE id=${req.params.id}`,
+  "DELETE FROM users WHERE = ?", req.params.id,
   req.params.id,
   function (error, results, fields) {
     if (error) {

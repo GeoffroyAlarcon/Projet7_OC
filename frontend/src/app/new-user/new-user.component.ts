@@ -35,14 +35,14 @@ this.userForm = this.formBuilder.group(
 }
 onSubmitForm() {
   const formValue = this.userForm.value;
-  const newUser = new User(
-    formValue['nom'],
-    formValue['prenom'],
-    formValue['email'],
-    formValue['departement'],
-    formValue['pseudo'],
-    formValue['motDePasse'],
-    );
+  const newUser = new User();
+  newUser.nom=  formValue['nom'],
+   newUser.prenom= formValue['prenom'],
+   newUser.email= formValue['email'],
+   newUser.departement= formValue['departement'],
+   newUser.pseudo= formValue['pseudo'],
+   newUser.motDePasse= formValue['motDePasse'],
+  
     console.log(newUser);
   this.userService.addUser(newUser);
   this.router.navigate(['/homePage']);
