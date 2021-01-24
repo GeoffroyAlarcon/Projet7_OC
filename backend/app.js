@@ -2,10 +2,10 @@ require("dotenv").config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require("helmet");
-const path = require ('path') // Pour le middleware express static pour acceder au chemin du système de fichier
+const path = require('path') // Pour le middleware express static pour acceder au chemin du système de fichier
 const userRoutes = require('./routes/user');
 const app = express()
-
+const messageRoutes = require("./routes/message");
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*') // On donne l'accès à toute origine '*'
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use(bodyParser.json()) 
+app.use(bodyParser.json())
 
 
 // helmet 
@@ -36,5 +36,6 @@ app.use(helmet.permittedCrossDomainPolicies());
 app.use(helmet.referrerPolicy());
 app.use(helmet.xssFilter());
 // end helmet
-app.use('/api/auth', userRoutes)
+app.use('/api/auth', userRoutes);
+app.use('/api/message', messageRoutes);
 module.exports = app;

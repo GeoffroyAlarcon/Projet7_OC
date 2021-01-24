@@ -11,7 +11,7 @@ conn.connect(function(err) {
   conn.query("SELECT * FROM utilisateur", (err,rows,result) => {
     if(err) throw err;
     rows.forEach( (row) => {
-     const user = new User(`${row.prenom}`,`${row.nom}`,`${row.email}`,`${row.motDePasse}`,`${row.pseudo}`,`${row.departement}`);
+     const user = new User(`${row.id}`,`${row.prenom}`,`${row.nom}`,`${row.email}`,`${row.motDePasse}`,`${row.pseudo}`,`${row.departement}`);
      console.log(user)
     });
 });
