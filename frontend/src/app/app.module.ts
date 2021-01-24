@@ -3,18 +3,19 @@ import{ HttpClientModule} from '@angular/common/http';
 import {  NgModule} from '@angular/core';
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './component/auth/auth.component';
 import{UserService} from "./services/user.service";
 import { Routes, RouterModule } from '@angular/router';
-import { NewUserComponent } from './new-user/new-user.component';
-import { HomeComponent } from './home/home.component';
-import { UserListComponent } from './user-list/user-list.component';
-import{HomePageComponent} from'./home-page/home-page.component'
+import { NewUserComponent } from './component/new-user/new-user.component';
+import{HomePageComponent} from'./component/home-page/home-page.component';
+import { HomeComponent } from './component/home/home.component';
+import { NewMessageComponent } from './component/new-message/new-message.component';
+import { GetAllMessageComponent } from './component/get-all-message/get-all-message.component';
+
 
 const appRoutes: Routes = [
   {path :'newUser', component: NewUserComponent },
   {path :'', component:  HomeComponent},
-  { path: 'users', component: UserListComponent },
   { path: 'homePage', component: HomePageComponent },
 
 ];
@@ -24,8 +25,10 @@ const appRoutes: Routes = [
     AuthComponent,
     NewUserComponent,
     HomeComponent,
-    UserListComponent,
-  HomePageComponent
+  HomePageComponent,
+  NewMessageComponent,
+  GetAllMessageComponent,
+
   ],
   imports: [
     BrowserModule,

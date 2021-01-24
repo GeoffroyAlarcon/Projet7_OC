@@ -18,7 +18,7 @@
             <a class="nav-link" href="#">message</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">déconnexion</a>
+            <a class="nav-link" (click)="offline()">déconnexion</a>
           </li>
         </ul>
       </div>
@@ -29,29 +29,11 @@
   <div class="row">
     <div class="offset-5">
       <img src="../../assets/icon-left-font-monochrome-black_opt.png" alt="">
-      <h1> Bienvenue {{user.prenom}} {{user.nom}}</h1>
-
+      <h3> Bienvenue {{user.prenom}} {{user.nom}}</h3>
+      il est {{maDate | date:' hh ' }} heures et {{maDate | date:' mm ' }} minutes
 
     </div>
   </div>
-
-  <div class="row">
-    <form>
-      <div class="offset-5">
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Example textarea</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="exampleFormControlFile1">Example file input</label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div>
-      </div>
-    </form>
-
-</div>
-
-
-
+  <app-new-message></app-new-message>
+  <app-get-all-message></app-get-all-message>
 </div>

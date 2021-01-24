@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
-
+import { User } from '../../models/user.model';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class AuthComponent implements OnInit {
   authForm: FormGroup;
   users: User[];
   constructor(
@@ -17,10 +16,8 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     private router: Router
   ) {}
+
   ngOnInit() {
-    this.initForm();
-  }
-  initForm() {
     this.authForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       motDePasse: ['', Validators.required],
