@@ -7,13 +7,8 @@ const conn = mysql.createConnection({
   database: "groupomania"
 })
 conn.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
 
-  conn.query("SELECT * FROM utilisateur", (err,rows,result) => {
-    if(err) throw err;
-    rows.forEach( (row) => {
-     const user = new User(`${row.id}`,`${row.prenom}`,`${row.nom}`,`${row.email}`,`${row.motDePasse}`,`${row.pseudo}`,`${row.departement}`);
-     console.log(user)
-    });
-});
-})
 module.exports = conn

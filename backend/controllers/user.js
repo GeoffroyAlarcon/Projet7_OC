@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 const conn = require('../mysqlConfig')
 const bcrypt = require('bcrypt')
 
-const User = require("../models/user")
+const User = require("../models/user");
+const { json } = require("express");
 
 exports.signup = (req, res, next) => {
   const user = req.body;
@@ -13,29 +14,24 @@ exports.signup = (req, res, next) => {
   bcrypt.hash(req.body._motDePasse, 10)
     .then(hash => {
 
-    user._motDePasse = hash
+      user._motDePasse = hash
 
       console.log("Connected!");
-      
+
       conn.query(userModel.saveUser(), [user._nom, user._prenom, user._email, user._departement, user._motDePasse, user._pseudo], function (err, result) {
-        if (err){
+        if (err) {
           return res.status(401).json({ message: 'email ou pseudo déjà pris veuillez !' });
         }
-        else{
-        return res.status(200).json({
-          user,
-          token: jwt.sign(
-            { user },
-            'RANDOM_TOKEN_SECRET',
-            { expiresIn: '24h' }
-          ) // ajout d'un token pour sécuriser la session
+        else {
+          return res.status(200).json({
+            user
 
 
-        });
-      }
+          });
+        }
       });
     });
-   
+
 }
 
 exports.login = (req, res, next) => {
@@ -56,17 +52,19 @@ exports.login = (req, res, next) => {
               return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
             else {
-              const authUser = new User(`${row.id}`, `${row.prenom}`, `${row.nom}`, `${row.email}`, `${row.motDePasse}`, `${row.pseudo}`, `${row.departement}`);
+              console.log("test " + row.id)
+              const authUser = new User(row.id, row.prenom, row.nom, row.email, row.motDePasse, row.pseudo, row.departement);
+
+              const token = jwt.sign(
+                { userId: row.id },
+                'RANDOM_TOKEN_SECRET',
+                { expiresIn: '24h' });
               return res.status(200).json({
-                authUser,
-                token: jwt.sign(
-                  { authUser },
-                  'RANDOM_TOKEN_SECRET',
-                  { expiresIn: '24h' }
-                ) // ajout d'un token pour sécuriser la session
+                userId: authUser.id,
+                token: token,
+                authUser
+              })
 
-
-              });
             }
           })
       })

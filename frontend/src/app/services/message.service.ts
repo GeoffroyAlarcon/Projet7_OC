@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Message } from '../models/message.models';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +18,7 @@ export class ServiceMessage {
   emitUsers() {
     this.messageSubject.next(this.messages.slice());
   }
+
   saveMessage(message: Message) {
     this.emitUsers();
     console.log('message prêt à être envoyé ' + message);
@@ -31,6 +31,27 @@ export class ServiceMessage {
   getAllMessage() {
     return this.httpClient.get(
       'http://localhost:3000/api/message/getAllMessage'
+    );
+  }
+  deleteMessage(id: Number) {
+    this.emitUsers();
+    console.log(' la donnée est ' + id);
+    return this.httpClient.post(
+      'http://localhost:3000/api/message/deleteMessage',
+      [id]
+    );
+  }
+  answerMessage(message: Message) {
+    this.emitUsers();
+    return this.httpClient.post(
+      'http://localhost:3000/api/message/saveMessage',
+      message
+    );
+  }
+
+  getOneMessageById(id: number) {
+    return this.httpClient.get(
+      'http://localhost:3000/api/message/getOneMessage/?_id=' + id
     );
   }
 }

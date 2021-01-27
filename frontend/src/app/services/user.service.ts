@@ -2,7 +2,7 @@ import { User } from '../models/user.model';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
   private users: User[] = [];
+  isAuth$ = new BehaviorSubject<boolean>(false);
   userSubject = new Subject<User[]>();
   constructor(private httpClient: HttpClient, private router: Router) {}
 

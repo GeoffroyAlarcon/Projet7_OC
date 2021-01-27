@@ -28,9 +28,10 @@ export class AuthComponent implements OnInit {
     let user = new User();
     this.userService
       .findUserByEmailAndPasseword(formValue['email'], formValue['motDePasse'])
-      .subscribe((data) => {
+      .subscribe((data) => {  
         user = data['authUser'];
         sessionStorage.setItem('user', JSON.stringify(user));
+        console.log(data);
         let test = sessionStorage.getItem('user');
         if (test !== null) {
           this.router.navigate(['/homePage']);

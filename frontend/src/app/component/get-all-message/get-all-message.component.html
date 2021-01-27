@@ -1,1 +1,8 @@
-<p>get-all-message works!</p>
+<ul>
+    <li *ngFor="let message of messages">
+        autheur du message: {{ message.user.pseudo}} {{message.contenu }} {{message.user.pseudo }}
+        <a [routerLink]="['message', message.id]" routerLinkActive="active"> <button class="btn btn-primary">répondre
+            </button> </a>
+        <button (click)="deleteMessage(message.id)" class="btn btn-primary">supprimez</button>
+    </li>
+</ul>

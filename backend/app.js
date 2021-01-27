@@ -21,7 +21,8 @@ app.use((req, res, next) => {
 })
 
 app.use(bodyParser.json())
-
+app.use('/api/message', messageRoutes);
+app.use('/api/auth', userRoutes);
 
 // helmet 
 app.use(helmet.contentSecurityPolicy());
@@ -36,6 +37,5 @@ app.use(helmet.permittedCrossDomainPolicies());
 app.use(helmet.referrerPolicy());
 app.use(helmet.xssFilter());
 // end helmet
-app.use('/api/auth', userRoutes);
-app.use('/api/message', messageRoutes);
+
 module.exports = app;

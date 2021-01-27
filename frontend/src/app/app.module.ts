@@ -11,12 +11,14 @@ import{HomePageComponent} from'./component/home-page/home-page.component';
 import { HomeComponent } from './component/home/home.component';
 import { NewMessageComponent } from './component/new-message/new-message.component';
 import { GetAllMessageComponent } from './component/get-all-message/get-all-message.component';
+import { GetOneMessageComponent } from './component/get-one-message/get-one-message.component';
 
 
 const appRoutes: Routes = [
   {path :'newUser', component: NewUserComponent },
   {path :'', component:  HomeComponent},
   { path: 'homePage', component: HomePageComponent },
+  {path:'homePage/message/:id',component:GetOneMessageComponent}
 
 ];
 @NgModule({
@@ -28,7 +30,7 @@ const appRoutes: Routes = [
   HomePageComponent,
   NewMessageComponent,
   GetAllMessageComponent,
-
+  GetOneMessageComponent,
   ],
   imports: [
     BrowserModule,
