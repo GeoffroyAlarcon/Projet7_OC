@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
+import { TokenType } from '@angular/compiler/src/ml_parser/lexer';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -26,12 +27,14 @@ export class AuthComponent implements OnInit {
   onSubmitForm() {
     const formValue = this.authForm.value;
     let user = new User();
+    let token
     this.userService
       .findUserByEmailAndPasseword(formValue['email'], formValue['motDePasse'])
       .subscribe((data) => {  
         user = data['authUser'];
+        token = data['token'];
+        sessionStorage.setItem("token",JSON.stringify(token));
         sessionStorage.setItem('user', JSON.stringify(user));
-        console.log(data);
         let test = sessionStorage.getItem('user');
         if (test !== null) {
           this.router.navigate(['/homePage']);

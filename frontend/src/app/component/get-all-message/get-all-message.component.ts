@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Message } from 'src/app/models/message.models';
+import { User } from 'src/app/models/user.model';
 import { ServiceMessage } from 'src/app/services/message.service';
 
 @Component({
@@ -10,22 +11,27 @@ import { ServiceMessage } from 'src/app/services/message.service';
 })
 export class GetAllMessageComponent implements OnInit {
   messages: any[] = [];
+  user:User = JSON.parse(sessionStorage.getItem("user"));
   constructor(private serviceMessage: ServiceMessage, private router: Router) {}
 
   ngOnInit(): void {
-    this.serviceMessage.getAllMessage().subscribe((data) => {
-      let tab = [];
-      tab = data['tab'];
-      for (let row of tab) {
-        console.log(row);
-        this.messages.push(row);
-      }
-    });
+  console.log(this.user.pseudo);
+  
+    this.displayGetAll();
   }
 
   deleteMessage(id: number): void {
+ console.log(id);
     console.log(id);
-    this.serviceMessage.deleteMessage(id).subscribe((data) => {
+    this.serviceMessage.deleteMessage(id).subscribe((res) => {
+      this.displayGetAll();
+    });
+  }
+
+  displayGetAll() {
+    this.serviceMessage.getAllMessage().subscribe((res) => {
+     this.messages = res["messages"];
+       
     });
   }
 }

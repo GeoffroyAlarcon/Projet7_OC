@@ -1,8 +1,9 @@
 <ul>
     <li *ngFor="let message of messages">
-        autheur du message: {{ message.user.pseudo}} {{message.contenu }} {{message.user.pseudo }}
+        {{user.pseudo}}
+        autheur du message: {{ message.user.pseudo}} {{message.id}} {{message.contenu }}
         <a [routerLink]="['message', message.id]" routerLinkActive="active"> <button class="btn btn-primary">répondre
-            </button> </a>
-        <button (click)="deleteMessage(message.id)" class="btn btn-primary">supprimez</button>
+            </button> </a> 
+    <span *ngIf="message.user.pseudo == user.pseudo">    <button (click)="deleteMessage(message.id)" class="btn btn-primary">supprimez</button> </span> 
     </li>
 </ul>

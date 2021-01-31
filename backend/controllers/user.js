@@ -19,6 +19,7 @@ exports.signup = (req, res, next) => {
       console.log("Connected!");
 
       conn.query(userModel.saveUser(), [user._nom, user._prenom, user._email, user._departement, user._motDePasse, user._pseudo], function (err, result) {
+ 
         if (err) {
           return res.status(401).json({ message: 'email ou pseudo déjà pris veuillez !' });
         }

@@ -1,4 +1,4 @@
-DROP database Groupomania create database Groupomania CHARACTER SET 'utf8';
+create database Groupomania CHARACTER SET 'utf8';
 
 use Groupomania drop table utilisateur;
 
@@ -20,7 +20,7 @@ CREATE TABLE messages (
   titre varchar(50) NOT NULL,
   contenu text NOT NULL,
   postDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  messageParent int DEFAULT NULL,
+  messageParent int  NULL,
   idUtilisateur int not null,
   FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(id),
   FOREIGN KEY(messageParent) REFERENCES messages(id)

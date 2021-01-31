@@ -42,10 +42,13 @@ export class NewMessageComponent implements OnInit {
     const formValue = this.messageForm.value;
     message.contenu = formValue['contenu'];
     message.titre = formValue['titre'];
-    message.datePost = Date.now();
-    message.messageParent = null;
+    message.messageParent= null;
     message.user = user;
     console.log(message);
-  this.serviceMessage.saveMessage(message);
+  this.serviceMessage.saveMessage(message)  .subscribe((data) => {
+    console.log('donné envoyer avec succès !');
+        this.router.navigate(['/test']);
+
+  });; 
   }
 }

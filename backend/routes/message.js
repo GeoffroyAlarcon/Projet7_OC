@@ -3,8 +3,10 @@ const messageCtrl = require('../controllers/message');
 const router = express.Router();
 
 const auth = require('../middleware/auth');
+router.get("/getAllMessage", auth,messageCtrl.getAllMessage);
+router.get("/getOneMessage",auth, messageCtrl.getOneMessage);
+router.post("/answerMessage",messageCtrl.answerMessage);
 router.post("/saveMessage", messageCtrl.newMessage);
-router.get("/getAllMessage", messageCtrl.getAllMessage)
-router.get("/getOneMessage", messageCtrl.getOneMessage)
-router.post("/deleteMessage", messageCtrl.deleteMessage)
+
+router.delete("/deleteMessage", auth, messageCtrl.deleteMessage);
 module.exports = router;

@@ -1,21 +1,21 @@
 import { User } from './user.model';
 
 export class Message {
-  private _id: number;
-  private _datePost: Number;
+  private _id: Number;
+  private _messageDate: Number;
   private _user: User;
   private _messageParent: Message;
-  private _contenu: String;
+  private _contenu: any;
   private _titre: String;
 
   constructor() {}
 
-  public get datePost(): Number {
-    return this._datePost;
+  public get messageDate(): Number {
+    return this._messageDate;
   }
 
-  public set datePost(v: Number) {
-    this._datePost = v;
+  public set messageDate(v: Number) {
+    this._messageDate = v;
   }
 
   public get user(): User {
@@ -25,11 +25,11 @@ export class Message {
   public set user(v: User) {
     this._user = v;
   }
-  public get contenu(): String {
+  public get contenu(): any {
     return this._contenu;
   }
 
-  public set contenu(v: String) {
+  public set contenu(v: any) {
     this._contenu = v;
   }
   public get titre(): String {
@@ -39,11 +39,24 @@ export class Message {
   public set titre(v: String) {
     this._titre = v;
   }
-  public get messageParent(): Message {
+  public get messageParent(): Message
+   {
     return this._messageParent;
   }
 
   public set messageParent(v: Message) {
     this._messageParent = v;
   }
+
+
+public get id() : Number {
+  return this._id;
+}
+
+public set id(v : Number) {
+  this._id = v;
+}
+
+
+
 }
