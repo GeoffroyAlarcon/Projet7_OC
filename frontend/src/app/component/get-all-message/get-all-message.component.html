@@ -1,21 +1,20 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto" *ngFor="let message of messages">
-           
+
             <div class="post-preview">
-                <a [routerLink]="['message', message.id]" routerLinkActive="active">    
+                <a [routerLink]="['message', message.id]" routerLinkActive="active">
                     <h2 class="post-title"> {{message.titre}}
-                    </h2></a>
-              
+                    </h2>
+                </a>
+
                 <p class="post-meta">Posté par {{ message.user.pseudo}} le {{message.messageDate}}
 
-                   
-                      
+
+
                     <span *ngIf="message.user.pseudo == user.pseudo || user.administrateur == 0"> <button
                             (click)="deleteMessage(message.id)" class="btn btn-primary">supprimez</button> </span>
 
-            </div>      
+            </div>
             <hr>
         </div>
-
-        

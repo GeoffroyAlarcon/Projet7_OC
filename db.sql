@@ -1,7 +1,9 @@
 create database Groupomania CHARACTER SET 'utf8';
 
 use Groupomania;
+
 DROP TABLE IF EXISTS utilisateur;
+
 CREATE TABLE utilisateur (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   nom VARCHAR(100),
@@ -20,8 +22,8 @@ CREATE TABLE messages (
   titre varchar(50) NOT NULL,
   contenu text NOT NULL,
   postDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  messageParent int  NULL,
+  messageParent int NULL,
   idUtilisateur int null,
-  FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(id)         ON DELETE CASCADE,
-  FOREIGN KEY(messageParent) REFERENCES messages(id)   ON DELETE  CASCADE 
+  FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(id) ON DELETE CASCADE,
+  FOREIGN KEY(messageParent) REFERENCES messages(id) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

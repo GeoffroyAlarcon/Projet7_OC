@@ -14,8 +14,6 @@ export class UserService {
   userSubject = new Subject<User[]>();
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-
-
   addUser(user: User) {
     return this.httpClient.post('http://localhost:3000/api/auth/signup', user);
   }
@@ -31,12 +29,18 @@ export class UserService {
     sessionStorage.clear();
     this.router.navigate(['/']);
   }
-  deleteUser(email:String, motDePasse:String) {
+  deleteUser(email: String, motDePasse: String) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
     });
 
-    return this.httpClient.delete('http://localhost:3000/api/auth/deleteUser/?_email=' +email +"&_motDePasse=" + motDePasse, {headers:headers} );
+    return this.httpClient.delete(
+      'http://localhost:3000/api/auth/deleteUser/?_email=' +
+        email +
+        '&_motDePasse=' +
+        motDePasse,
+      { headers: headers }
+    );
   }
 }

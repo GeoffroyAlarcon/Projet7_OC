@@ -48,12 +48,12 @@ exports.getAllMessage = (req, res, next) => {
   conn.query(messageModel.getAll(), function (err, rows, result) {
     if (err) throw err;
     rows.forEach((row) => {
-if(row.messageParent == null){
-      const user = new User(`${row.utilisateurId}`, `${row.prenom}`, `${row.nom}`, null, null, `${row.pseudo}`, `${row.departement}`)
-      const message = new Message(`${row.messageId}`, user, `${row.titre}`, `${row.contenu}`, `${row.postDate}`, null)
+      if (row.messageParent == null) {
+        const user = new User(`${row.utilisateurId}`, `${row.prenom}`, `${row.nom}`, null, null, `${row.pseudo}`, `${row.departement}`)
+        const message = new Message(`${row.messageId}`, user, `${row.titre}`, `${row.contenu}`, `${row.postDate}`, null)
 
-      messages.push(message)
-    }
+        messages.push(message)
+      }
     })
     return res.status(200).json({
       messages
@@ -74,7 +74,7 @@ exports.getAllChildMessage = (req, res, next) => {
     if (err) throw err;
     rows.forEach((row) => {
       const user = new User(row.utilisateurId, `${row.prenom}`, `${row.nom}`, null, null, `${row.pseudo}`, `${row.departement}`)
-      const message = new Message(row.messageId, user, `${row.titre}`, `${row.contenu}`, `${row.postDate}`, null,null)
+      const message = new Message(row.messageId, user, `${row.titre}`, `${row.contenu}`, `${row.postDate}`, null, null)
 
       messages.push(message)
 
@@ -91,14 +91,12 @@ exports.getOneMessage = (req, res, next) => {
   const messageModel = new Message()
   conn.query(messageModel.getOneMessageById(), req.query._id, function (err, rows) {
     rows.forEach((row) => {
-
-    const user = new User(row.idUtilisateur, row.prenom ,row.nom, null, null, row.pseudo, row.departement);
-    const messageById = new Message(row.messageId, user, row.titre , row.contenu, row.postDate, null)
-    return res.status(200).json({
-      messageById
-
-    }); 
-  })
+      const user = new User(row.idUtilisateur, row.prenom, row.nom, null, null, row.pseudo, row.departement);
+      const messageById = new Message(row.messageId, user, row.titre, row.contenu, row.postDate, null)
+      return res.status(200).json({
+        messageById
+      });
+    })
 
   })
 }
@@ -109,7 +107,7 @@ exports.deleteMessage = (req, res, next) => {
   const messageModel = new Message();
   const data = req.query;
   console.log(data)
-  conn.query(messageModel.deleteMessage(), [req.query._id,req.query._motDePasse], function (err, result) {
+  conn.query(messageModel.deleteMessage(), [req.query._id, req.query._motDePasse], function (err, result) {
     if (err) throw err;
     if (err) {
       return res.status(401).json({ message: '' });

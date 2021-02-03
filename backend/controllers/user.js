@@ -1,8 +1,6 @@
 const jwt = require("jsonwebtoken");
-
 const conn = require('../mysqlConfig')
 const bcrypt = require('bcrypt')
-
 const User = require("../models/user");
 
 exports.signup = (req, res, next) => {
@@ -24,7 +22,7 @@ exports.signup = (req, res, next) => {
         }
         else {
           return res.status(200).json({
-            message: "utilisatuer enregistré avec succès ! " 
+            message: "utilisateur enregistré avec succès ! "
 
 
           });
@@ -36,7 +34,6 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   const user = new User()
-
   conn.query(user.findUser(), req.body.email, (err, rows, result) => {
     if (err) throw err;
 
@@ -52,7 +49,6 @@ exports.login = (req, res, next) => {
               return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
             else {
-              console.log("test " + row.id)
               const authUser = new User(row.id, row.prenom, row.nom, row.email, row.motDePasse, row.pseudo, row.departement);
 
               const token = jwt.sign(
@@ -79,18 +75,18 @@ exports.login = (req, res, next) => {
 
 
 
-  exports.deleteUser = (req, res, next) => {
-    const user = new User()
-    conn.query(user.deleteUser()
-      ,[req.query._email, req.query._motDePasse],
-      function (error, results, fields) {
-        
-        if (error) {
-          return res.status(400).json(error)
-        }
-        return res
-          .status(200)
-          .json({ message: 'Votre compte a bien été supprimé !' })
+exports.deleteUser = (req, res, next) => {
+  const user = new User()
+  conn.query(user.deleteUser()
+    , [req.query._email, req.query._motDePasse],
+    function (error, results, fields) {
+
+      if (error) {
+        return res.status(400).json(error)
       }
-    )
-  }
+      return res
+        .status(200)
+        .json({ message: 'Votre compte a bien été supprimé !' })
+    }
+  )
+}

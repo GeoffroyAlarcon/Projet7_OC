@@ -11,20 +11,18 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./get-one-message.component.scss'],
 })
 export class GetOneMessageComponent implements OnInit {
-message:Message 
-  messages
+  message: Message;
+  messages;
   answerForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private serviceMessage: ServiceMessage,
-    private userService : UserService
+    private userService: UserService
   ) {}
   id: Number;
   ngOnInit(): void {
-
-
-    this.route.paramMap.subscribe(value => {
+    this.route.paramMap.subscribe((value) => {
       this.id = Number.parseInt(value.get('id'));
     });
     this.getOnMessage();
@@ -34,17 +32,16 @@ message:Message
     });
   }
 
-getallchild(){
-this.serviceMessage.getAllChild(this.id).subscribe(res =>{
-this.messages = res["messages"];
-})
-
-}
-getOnMessage(){
-  this.serviceMessage.getOneMessageById(this.id).subscribe(res => {
-
-    this.message = res["messageById"];
-  });
+  getallchild() {
+    this.serviceMessage.getAllChild(this.id).subscribe((res) => {
+      this.messages = res['messages'];
+    });
+  }
+  getOnMessage() {
+    this.serviceMessage.getOneMessageById(this.id).subscribe((res) => {
+      console.log(res['messageById']);
+      this.message = res['messageById'];
+    });
   }
 
   onSubmitForm() {
@@ -53,12 +50,11 @@ getOnMessage(){
 
     messageEnfant.contenu = formValue['contenu'];
     messageEnfant.user = JSON.parse(sessionStorage.getItem('user'));
-    messageEnfant.messageParent= this.message;
 
     console.log(messageEnfant);
-       this.serviceMessage.answerMessage(messageEnfant).subscribe(res =>{
-        console.log("test réussi ")
-       }   );
+    this.serviceMessage.answerMessage(messageEnfant).subscribe((res) => {
+      console.log('test réussi ');
+    });
   }
   offline() {
     this.userService.disconect();

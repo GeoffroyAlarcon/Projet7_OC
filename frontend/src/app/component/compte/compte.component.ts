@@ -16,12 +16,12 @@ export class CompteComponent implements OnInit {
     this.user = JSON.parse(sessionStorage.getItem('user'));
   }
 
-  deleteAccount(){
-this.userService.deleteUser(this.user.email, this.user.motDePasse).subscribe(res => {
-
-this.offline()
-})
-
+  deleteAccount() {
+    this.userService
+      .deleteUser(this.user.email, this.user.motDePasse)
+      .subscribe((res) => {
+        this.offline();
+      });
   }
   offline() {
     this.userService.disconect();

@@ -27,13 +27,13 @@ export class AuthComponent implements OnInit {
   onSubmitForm() {
     const formValue = this.authForm.value;
     let user = new User();
-    let token
+    let token;
     this.userService
       .findUserByEmailAndPasseword(formValue['email'], formValue['motDePasse'])
-      .subscribe((data) => {  
+      .subscribe((data) => {
         user = data['authUser'];
         token = data['token'];
-        sessionStorage.setItem("token",JSON.stringify(token));
+        sessionStorage.setItem('token', JSON.stringify(token));
         sessionStorage.setItem('user', JSON.stringify(user));
         let test = sessionStorage.getItem('user');
         if (test !== null) {

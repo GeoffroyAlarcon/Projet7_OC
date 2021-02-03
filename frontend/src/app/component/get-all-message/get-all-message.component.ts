@@ -15,7 +15,6 @@ export class GetAllMessageComponent implements OnInit {
   constructor(private serviceMessage: ServiceMessage, private router: Router) {}
 
   ngOnInit(): void {
-
     this.displayGetAll();
   }
 
