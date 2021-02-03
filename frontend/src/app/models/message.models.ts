@@ -6,7 +6,7 @@ export class Message {
   private _user: User;
   private _messageParent: Message;
   private _contenu: any;
-  private _titre: String;
+  private _titre: any;
 
   constructor() {}
 
@@ -32,11 +32,11 @@ export class Message {
   public set contenu(v: any) {
     this._contenu = v;
   }
-  public get titre(): String {
+  public get titre(): any {
     return this._titre;
   }
 
-  public set titre(v: String) {
+  public set titre(v: any) {
     this._titre = v;
   }
   public get messageParent(): Message

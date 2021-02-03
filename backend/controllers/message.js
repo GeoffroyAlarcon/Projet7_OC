@@ -1,7 +1,7 @@
 const Message = require("../models/message")
 const conn = require('../mysqlConfig');
 const User = require("../models/user");
-const userCtrl = require("./user")
+const bcrypt = require('bcrypt')
 
 exports.newMessage = (req, res, next) => {
   const messageModel = new Message()
@@ -48,11 +48,12 @@ exports.getAllMessage = (req, res, next) => {
   conn.query(messageModel.getAll(), function (err, rows, result) {
     if (err) throw err;
     rows.forEach((row) => {
+if(row.messageParent == null){
       const user = new User(`${row.utilisateurId}`, `${row.prenom}`, `${row.nom}`, null, null, `${row.pseudo}`, `${row.departement}`)
       const message = new Message(`${row.messageId}`, user, `${row.titre}`, `${row.contenu}`, `${row.postDate}`, null)
 
       messages.push(message)
-
+    }
     })
     return res.status(200).json({
       messages
@@ -69,11 +70,11 @@ exports.getAllChildMessage = (req, res, next) => {
   let messages = []
   const messageModel = new Message()
 
-  conn.query(messageModel.getAllChildMessage(), function (err, rows, result) {
+  conn.query(messageModel.getallChildMessage(), req.query._id, function (err, rows, result) {
     if (err) throw err;
     rows.forEach((row) => {
-      const user = new User(`${row.utilisateurId}`, `${row.prenom}`, `${row.nom}`, null, null, `${row.pseudo}`, `${row.departement}`)
-      const message = new Message(`${row.messageId}`, user, `${row.titre}`, `${row.contenu}`, `${row.postDate}`, null)
+      const user = new User(row.utilisateurId, `${row.prenom}`, `${row.nom}`, null, null, `${row.pseudo}`, `${row.departement}`)
+      const message = new Message(row.messageId, user, `${row.titre}`, `${row.contenu}`, `${row.postDate}`, null,null)
 
       messages.push(message)
 
@@ -88,17 +89,16 @@ exports.getAllChildMessage = (req, res, next) => {
 
 exports.getOneMessage = (req, res, next) => {
   const messageModel = new Message()
-  conn.query(messageModel.getOneMessageById(), req.query._id, function (err, result) {
-    if (err) throw err
-    console.log(result[0]);
+  conn.query(messageModel.getOneMessageById(), req.query._id, function (err, rows) {
+    rows.forEach((row) => {
 
-    const user = new User(`${result[0].idUtilisateur}`, `${result[0].prenom}`, `${result[0].nom}`, null, null, `${result[0].pseudo}`, `${result[0].departement}`);
-    const messageById = new Message(result[0].messageId, user, result[0].titre, result[0].contenu, result[0].postDate, null)
+    const user = new User(row.idUtilisateur, row.prenom ,row.nom, null, null, row.pseudo, row.departement);
+    const messageById = new Message(row.messageId, user, row.titre , row.contenu, row.postDate, null)
     return res.status(200).json({
       messageById
 
-    });
-
+    }); 
+  })
 
   })
 }
@@ -108,9 +108,8 @@ exports.getOneMessage = (req, res, next) => {
 exports.deleteMessage = (req, res, next) => {
   const messageModel = new Message();
   const data = req.query;
-  console.log(data);
-  const token = req.body
-  conn.query(messageModel.deleteMessage(), req.query._id, function (err, result) {
+  console.log(data)
+  conn.query(messageModel.deleteMessage(), [req.query._id,req.query._motDePasse], function (err, result) {
     if (err) throw err;
     if (err) {
       return res.status(401).json({ message: '' });
@@ -124,5 +123,6 @@ exports.deleteMessage = (req, res, next) => {
   })
 
 }
+
 
 

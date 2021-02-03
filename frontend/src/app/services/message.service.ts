@@ -33,32 +33,51 @@ export class ServiceMessage {
       { headers: headers }
     );
   }
-  deleteMessage(id: Number) {
+  deleteMessage(id: Number, email: String, motDePasse: String) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
     });
     console.log(' la donnée est ' + id);
     return this.httpClient.delete(
-      'http://localhost:3000/api/message/deleteMessage/?_id=' + id,
+      'http://localhost:3000/api/message/deleteMessage/?_id=' +
+        id +
+        '&_email=' +
+        email +
+        '&_motDePasse=' +
+        motDePasse,
       { headers: headers }
     );
   }
   answerMessage(message: Message) {
-  
-    return this.httpClient.post(
-      'http://localhost:3000/api/message/answerMessage',
-      message
-    );
-  }
-
-  getOneMessageById(id: number): Observable<Message> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
     });
-    return this.httpClient.get<Message>(
+    return this.httpClient.post(
+      'http://localhost:3000/api/message/answerMessage',
+      message,
+      { headers: headers }
+    );
+  }
+
+  getOneMessageById(id: Number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
+    });
+    return this.httpClient.get(
       'http://localhost:3000/api/message/getOneMessage/?_id=' + id,
+      { headers: headers }
+    );
+  }
+  getAllChild(id: Number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
+    });
+    return this.httpClient.get(
+      'http://localhost:3000/api/message/getAllMessageChild/?_id=' + id,
       { headers: headers }
     );
   }

@@ -1,0 +1,20 @@
+<form #monForm=ngForm (ngSubmit)="updateUser()">
+    <div>
+        Nom : <input type=text name=nom [(ngModel)]=user.nom required #nom="ngModel">
+    </div>
+    <div>
+        Prénom : <input type=text name=prenom [(ngModel)]= user.prenom required #prenom="ngModel">
+    </div>
+    <div>
+        Pseudo : <input type=text name=pseudo [(ngModel)]= user.pseudo required #pseudo="ngModel">
+    </div>
+    <div>
+        adresseMail : <input type=text name=_email [(ngModel)]= user.email required #email="ngModel">
+    </div>
+   
+    <div>
+        <button class='btn btn-primary' [disabled]=!monForm.valid>
+    Supprimer le compte 
+    </button>
+    </div>
+</form>

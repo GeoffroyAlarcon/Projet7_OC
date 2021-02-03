@@ -4,7 +4,6 @@ const conn = require('../mysqlConfig')
 const bcrypt = require('bcrypt')
 
 const User = require("../models/user");
-const { json } = require("express");
 
 exports.signup = (req, res, next) => {
   const user = req.body;
@@ -19,7 +18,7 @@ exports.signup = (req, res, next) => {
       console.log("Connected!");
 
       conn.query(userModel.saveUser(), [user._nom, user._prenom, user._email, user._departement, user._motDePasse, user._pseudo], function (err, result) {
- 
+
         if (err) {
           return res.status(401).json({ message: 'email ou pseudo déjà pris veuillez !' });
         }
@@ -74,6 +73,39 @@ exports.login = (req, res, next) => {
 
 
   });
+
+
+  exports.updateUser = (req, res, next) => {
+    const user = req.body;
+    const userModel = new User();
+    console.log(user)
+    console.log("nom : " + user._email);
+    bcrypt.hash(req.body._motDePasse, 10)
+      .then(hash => {
+
+        user._motDePasse = hash
+
+        console.log("Connected!");
+
+        conn.query(userModel.updateUser(), [user._nom, user._prenom, user._email, user._motDePasse, user._pseudo], function (err, result) {
+
+          if (err) {
+            return res.status(401).json({ message: 'email ou pseudo déjà pris veuillez !' });
+          }
+          else {
+            return res.status(200).json({
+              user
+
+
+            });
+          }
+        });
+      });
+
+  }
+
+
+
 
   exports.deleteUser = (req, res, next) => {
     const user = new User()

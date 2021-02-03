@@ -10,8 +10,8 @@ import { ServiceMessage } from '../../services/message.service';
   styleUrls: ['./new-message.component.scss'],
 })
 export class NewMessageComponent implements OnInit {
+  messages:Array<Message>
   messageForm: FormGroup;
-  maDate = Date.now();
   user = new User();
   constructor(
     private formBuilder: FormBuilder,
@@ -47,8 +47,9 @@ export class NewMessageComponent implements OnInit {
     console.log(message);
   this.serviceMessage.saveMessage(message)  .subscribe((data) => {
     console.log('donné envoyer avec succès !');
-        this.router.navigate(['/test']);
-
-  });; 
+this.router.navigate(["/homePage"])
+window.location.reload();
+});
   }
+
 }

@@ -11,27 +11,27 @@ import { ServiceMessage } from 'src/app/services/message.service';
 })
 export class GetAllMessageComponent implements OnInit {
   messages: any[] = [];
-  user:User = JSON.parse(sessionStorage.getItem("user"));
+  user: User = JSON.parse(sessionStorage.getItem('user'));
   constructor(private serviceMessage: ServiceMessage, private router: Router) {}
 
   ngOnInit(): void {
-  console.log(this.user.pseudo);
-  
+    console.log(this.user.pseudo);
+
     this.displayGetAll();
   }
 
   deleteMessage(id: number): void {
- console.log(id);
     console.log(id);
-    this.serviceMessage.deleteMessage(id).subscribe((res) => {
-      this.displayGetAll();
-    });
+    this.serviceMessage
+      .deleteMessage(id, this.user.email, this.user.motDePasse)
+      .subscribe((res) => {
+        this.displayGetAll();
+      });
   }
 
   displayGetAll() {
     this.serviceMessage.getAllMessage().subscribe((res) => {
-     this.messages = res["messages"];
-       
+      this.messages = res['messages'];
     });
   }
 }
