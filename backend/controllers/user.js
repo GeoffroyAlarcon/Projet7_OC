@@ -24,7 +24,7 @@ exports.signup = (req, res, next) => {
         }
         else {
           return res.status(200).json({
-            user
+            message: "utilisatuer enregistré avec succès ! " 
 
 
           });
@@ -73,36 +73,8 @@ exports.login = (req, res, next) => {
 
 
   });
+}
 
-
-  exports.updateUser = (req, res, next) => {
-    const user = req.body;
-    const userModel = new User();
-    console.log(user)
-    console.log("nom : " + user._email);
-    bcrypt.hash(req.body._motDePasse, 10)
-      .then(hash => {
-
-        user._motDePasse = hash
-
-        console.log("Connected!");
-
-        conn.query(userModel.updateUser(), [user._nom, user._prenom, user._email, user._motDePasse, user._pseudo], function (err, result) {
-
-          if (err) {
-            return res.status(401).json({ message: 'email ou pseudo déjà pris veuillez !' });
-          }
-          else {
-            return res.status(200).json({
-              user
-
-
-            });
-          }
-        });
-      });
-
-  }
 
 
 
@@ -110,9 +82,9 @@ exports.login = (req, res, next) => {
   exports.deleteUser = (req, res, next) => {
     const user = new User()
     conn.query(user.deleteUser()
-      , req.params.id,
-      req.params.id,
+      ,[req.query._email, req.query._motDePasse],
       function (error, results, fields) {
+        
         if (error) {
           return res.status(400).json(error)
         }
@@ -122,4 +94,3 @@ exports.login = (req, res, next) => {
       }
     )
   }
-}

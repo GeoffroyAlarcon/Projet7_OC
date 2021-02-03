@@ -37,6 +37,6 @@ export class UserService {
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
     });
 
-    return this.httpClient.delete('http://localhost:3000/api/auth/deleteUser/?_email=' +email +"&_motDePasse=" + motDePasse);
+    return this.httpClient.delete('http://localhost:3000/api/auth/deleteUser/?_email=' +email +"&_motDePasse=" + motDePasse, {headers:headers} );
   }
 }

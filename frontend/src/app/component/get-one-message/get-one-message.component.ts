@@ -37,7 +37,6 @@ message:Message
 getallchild(){
 this.serviceMessage.getAllChild(this.id).subscribe(res =>{
 this.messages = res["messages"];
-console.log(this.messages)
 })
 
 }

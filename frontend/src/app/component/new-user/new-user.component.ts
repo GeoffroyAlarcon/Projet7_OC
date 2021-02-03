@@ -9,7 +9,7 @@ import { User } from '../../models/user.model';
   styleUrls: ['./new-user.component.scss']
 })
 export class NewUserComponent implements OnInit {
-
+response: any;
   userForm: FormGroup;
 
   constructor(private formBuilder : FormBuilder,              private userService: UserService,
@@ -47,11 +47,9 @@ onSubmitForm() {
     console.log(newUser)
   this.userService.addUser(newUser)
     .subscribe((data) => {
-      sessionStorage.setItem('user', JSON.stringify(newUser));
-      let test = sessionStorage.getItem('user');
-      if (test !== null) {
-        this.router.navigate(['/homePage']);
-      }
+     this.response =data["message"];
+         window.alert(this.response)
+      
     });
 
 }

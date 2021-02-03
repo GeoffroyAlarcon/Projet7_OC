@@ -6,7 +6,7 @@ export class User {
   private _departement: string;
   private _pseudo: string;
   private _motDePasse: string;
-
+  private _administrateur: Number;
   constructor() {}
 
   public get id(): number {
@@ -43,7 +43,13 @@ export class User {
   public get motDePasse(): string {
     return this._motDePasse;
   }
+  public get administrateur(): Number {
+    return this._administrateur;
+  }
 
+  public set administrateur(v: Number) {
+    this._administrateur = v;
+  }
   public set motDePasse(v: string) {
     this._motDePasse = v;
   }

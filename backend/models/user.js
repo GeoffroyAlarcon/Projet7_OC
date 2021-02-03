@@ -18,7 +18,7 @@ class User {
     return "SELECT * FROM utilisateur where email = ?";
   }
   deleteUser() {
-    return "DELETE FROM utilisateur WHERE id = ? and motDePasse = ?"
+    return "DELETE utilisateur FROM utilisateur WHERE email = ? and motDePasse = ?"
   }
 
   updateUser() {
