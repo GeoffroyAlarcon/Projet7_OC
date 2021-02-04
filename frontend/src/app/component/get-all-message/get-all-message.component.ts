@@ -11,7 +11,7 @@ import { ServiceMessage } from 'src/app/services/message.service';
 })
 export class GetAllMessageComponent implements OnInit {
   messages: any[] = [];
-  user: User = JSON.parse(sessionStorage.getItem('user'));
+  user = JSON.parse(sessionStorage.getItem('user'));
   constructor(private serviceMessage: ServiceMessage, private router: Router) {}
 
   ngOnInit(): void {

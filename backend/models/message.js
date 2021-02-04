@@ -30,7 +30,7 @@ class Message {
     }
 
     deleteMessageForAdmin() {
-        return "delete  from messages  messages.id as messageId, utilisateur.id as utilisateurId from messages inner join utilisateur on messages.idUtilisateur = utilisateur.id  where messages.id = ?"
+        return "delete messages from messages  where messages.id = ?"
     }
 
 }

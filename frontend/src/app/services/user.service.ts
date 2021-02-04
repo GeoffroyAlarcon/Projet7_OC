@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
   private users: User[] = [];
-private  _isAuth:boolean = false;
+  private _isAuth: boolean = false;
 
   userSubject = new Subject<User[]>();
   constructor(private httpClient: HttpClient, private router: Router) {}
@@ -18,22 +18,34 @@ private  _isAuth:boolean = false;
   addUser(user: User) {
     return this.httpClient.post('http://localhost:3000/api/auth/signup', user);
   }
-  
-  public set isAuth(v : boolean) {
+
+  public set isAuth(v: boolean) {
     this._isAuth = v;
   }
 
-public get isAuth() : boolean {
-  return this._isAuth;
-}
+  public get isAuth(): boolean {
+    return this._isAuth;
+  }
 
-
-  findUserByEmailAndPasseword(email: String, motDePasse: String):Observable<User> {
-    this.isAuth = true
+  findUserByEmailAndPasseword(
+    email: String,
+    motDePasse: String
+  ): Observable<User> {
+    this.isAuth = true;
     return this.httpClient.post<User>('http://localhost:3000/api/auth/login', {
       email,
       motDePasse,
     });
+  }
+  loginForAdmin(email: String, motDePasse: String): Observable<User> {
+    this.isAuth = true;
+    return this.httpClient.post<User>(
+      'http://localhost:3000/api/auth/loginForAdmin',
+      {
+        email,
+        motDePasse,
+      }
+    );
   }
 
   disconect() {

@@ -64,8 +64,29 @@ exports.login = (req, res, next) => {
             }
           })
       })
-    };
+    }
+  })
+};
+exports.loginForAdmin = (req, res, next) => {
+  const user = new User()
+  conn.query(user.loginForAdmin(), [req.body.email, req.body.motDePasse], (err, rows, result) => {
+    if (err) throw err;
+    rows.forEach((row) => {
 
+      const authUser = new User(row.id, null, null, row.email, row.motDePasse, null, null, row.administrateur);
+
+      const token = jwt.sign(
+        { userId: row.id },
+        'RANDOM_TOKEN_SECRET',
+        { expiresIn: '24h' });
+      return res.status(200).json({
+        userId: authUser.id,
+        token: token,
+        authUser
+      })
+
+
+    })
 
 
   });

@@ -68,6 +68,7 @@ exports.getAllMessage = (req, res, next) => {
 
 exports.getAllChildMessage = (req, res, next) => {
   let messages = []
+
   const messageModel = new Message()
 
   conn.query(messageModel.getallChildMessage(), req.query._id, function (err, rows, result) {
@@ -105,22 +106,59 @@ exports.getOneMessage = (req, res, next) => {
 
 exports.deleteMessage = (req, res, next) => {
   const messageModel = new Message();
-  const data = req.query;
-  console.log(data)
-  conn.query(messageModel.deleteMessage(), [req.query._id, req.query._motDePasse], function (err, result) {
+  const userModel = new User();
+  var sha1 = require('sha1');
+
+
+  conn.query(userModel.findUser(), req.query._email, (err, rows, result) => {
     if (err) throw err;
-    if (err) {
-      return res.status(401).json({ message: '' });
-    }
-    else {
-      return res.status(200).json({
-        message: "suprresion avec succès"
-      })
-    }
+    rows.forEach((row) => {
+      // on vérifie si l'utilisateur a le statut d'admninistrateur ou pas
+
+      if (row.administrateur == 1 && row.motDePasse == req.query._motDePasse) {
+        conn.query(messageModel.deleteMessageForAdmin(), req.query._id, function (err, result) {
+          if (err) throw err;
+          if (err) {
+            return res.status(401).json({ message: '' });
+          }
+          else {
+            return res.status(200).json({
+              message: "suprresion avec succès"
+            })
+          }
+
+        })
+
+      }
+      else {
+        bcrypt.compare(req.query._motDePasse, `${row.motDePasse}`)
+          .then(valid => {
+            const authUser = new User(row.id, row.prenom, row.nom, row.email, row.motDePasse, row.pseudo, row.departement, row.admin);
+            // si la base de données retourne 1 cela siginifie l'utilisateur est administrateur donc il peut supprimer tous les commentaires 
+
+
+
+            // si la base de données retourne 0 cela signifie que l'utilisateur n'est pas administrateur et peut donc seulement supprimer ses propre commentaires
+            conn.query(messageModel.deleteMessage(), [req.query._id, req.query._motDePasse], function (err, result) {
+              if (err) throw err;
+              if (err) {
+                return res.status(401).json({ message: '' });
+              }
+              else {
+                return res.status(200).json({
+                  message: "suprresion avec succès"
+                })
+              }
+
+            })
+
+          })
+      }
+    })
 
   })
-
 }
+
 
 
 

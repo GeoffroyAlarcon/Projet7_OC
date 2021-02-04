@@ -9,7 +9,7 @@ CREATE TABLE utilisateur (
   nom VARCHAR(100),
   prenom VARCHAR(100),
   email VARCHAR(255) UNIQUE,
-  motDePasse VARCHAR(100) not null,
+  motDePasse VARCHAR(250) not null,
   pseudo VARCHAR(200) UNIQUE,
   administrateur tinyint NOT NULL DEFAULT '0',
   departement VARCHAR(100)
