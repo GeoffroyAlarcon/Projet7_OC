@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './component/auth/auth.component';
+import { AuthGuard } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { Routes, RouterModule } from '@angular/router';
 import { NewUserComponent } from './component/new-user/new-user.component';
@@ -13,13 +14,20 @@ import { NewMessageComponent } from './component/new-message/new-message.compone
 import { GetAllMessageComponent } from './component/get-all-message/get-all-message.component';
 import { GetOneMessageComponent } from './component/get-one-message/get-one-message.component';
 import { CompteComponent } from './component/compte/compte.component';
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 
 const appRoutes: Routes = [
   { path: 'newUser', component: NewUserComponent },
   { path: '', component: HomeComponent },
-  { path: 'homePage', component: HomePageComponent },
-  { path: 'homePage/message/:id', component: GetOneMessageComponent },
-  { path: 'compte', component: CompteComponent },
+  { path: 'homePage', canActivate: [AuthGuard], component: HomePageComponent },
+  {
+    path: 'homePage/message/:id',
+    canActivate: [AuthGuard],
+    component: GetOneMessageComponent,
+  },
+  { path: 'compte', canActivate: [AuthGuard], component: CompteComponent },
+  { path: 'not-found', component: FourOhFourComponent },
+  { path: '**', redirectTo: 'not-found' },
 ];
 @NgModule({
   declarations: [
@@ -32,6 +40,7 @@ const appRoutes: Routes = [
     GetAllMessageComponent,
     GetOneMessageComponent,
     CompteComponent,
+    FourOhFourComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +49,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [UserService],
+  providers: [UserService, AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -47,13 +47,12 @@ export class GetOneMessageComponent implements OnInit {
   onSubmitForm() {
     let messageEnfant = new Message();
     const formValue = this.answerForm.value;
-
     messageEnfant.contenu = formValue['contenu'];
     messageEnfant.user = JSON.parse(sessionStorage.getItem('user'));
-
+    messageEnfant.messageParent = this.message; // ajout de l'objet message pour mettre entre relation les réponses et le message initial
     console.log(messageEnfant);
     this.serviceMessage.answerMessage(messageEnfant).subscribe((res) => {
-      console.log('test réussi ');
+      this.getallchild();
     });
   }
   offline() {

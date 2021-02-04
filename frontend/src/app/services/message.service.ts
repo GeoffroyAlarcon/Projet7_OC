@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Message } from '../models/message.models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceMessage {
   private messages: Message[] = [];
   messageSubject = new Subject<Message[]>();
-
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router, private userService:UserService) {}
 
   saveMessage(message: Message) {
     console.log('message prêt à être envoyé ' + message);
@@ -22,13 +22,13 @@ export class ServiceMessage {
       message
     );
   }
-  getAllMessage() {
+  getAllMessage():Observable<Array<Message>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
     });
     console.log(headers.get('Content-Type'));
-    return this.httpClient.get(
+    return this.httpClient.get<Array<Message>>(
       'http://localhost:3000/api/message/getAllMessage',
       { headers: headers }
     );
