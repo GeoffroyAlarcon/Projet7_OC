@@ -1,15 +1,21 @@
-<div class="container-fluid">
+<nav class="navbar navbar-expand navbar-dark bg-dark  text-center">
+    <a class="navbar-brand" href="/">Groupomania</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<div class="container">
     <app-auth></app-auth>
-
     <div class="row">
-        <div class="col-md-6 offset-3">
-            <a routerLink="/newUser" routerLinkActive="active"> Pas encore inscrit ? </a>
+        <div class="col-md-12 text-center">
+            <a routerLink="/newUser" routerLinkActive="active"> Pas encore inscrit(e) ? </a>
         </div>
     </div>
-</div>
-<div class="container-fluid">
     <div class="row">
         <div class="offset-5">
-            <img src="../../../assets/icon-left-font-monochrome-black_opt.png" alt="">
+            <img src="../../../assets/Webp.net-resizeimage (6).png" class="img-fluid" alt="">
         </div>
     </div>
+    <app-gallery></app-gallery>
+</div>

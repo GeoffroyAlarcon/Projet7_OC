@@ -15,6 +15,7 @@ import { GetAllMessageComponent } from './component/get-all-message/get-all-mess
 import { GetOneMessageComponent } from './component/get-one-message/get-one-message.component';
 import { CompteComponent } from './component/compte/compte.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { GalleryComponent } from './component/gallery/gallery.component';
 
 const appRoutes: Routes = [
   { path: 'newUser', component: NewUserComponent },
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
     GetOneMessageComponent,
     CompteComponent,
     FourOhFourComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,

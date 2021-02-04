@@ -24,14 +24,14 @@
   </div>
 </div>
 <div class="container-fluid">
-  <div class="row">
-    <div class="offset-5">
-      <img src="../../assets/icon-left-font-monochrome-black_opt.png" alt="">
-      <h3> Bienvenue {{user.prenom}} {{user.nom}}</h3>
-      il est {{maDate | date:' hh ' }} heures et {{maDate | date:' mm ' }} minutes
-
-    </div>
+  <div class="row text-center">
+  
+<div class="col-12"> 
+  <h3> Bienvenue {{user.prenom}} {{user.nom}}</h3>
+  <p> il est {{maDate | date:' hh ' }} heures et {{maDate | date:' mm ' }} minutes</p>
+ </div>
   </div>
+
   <app-new-message></app-new-message>
   <app-get-all-message></app-get-all-message>
 </div>

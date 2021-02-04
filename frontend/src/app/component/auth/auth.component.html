@@ -1,26 +1,19 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark  text-center">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Groupomania <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<div class="row">
-  <div class="col-8 offset-2">
-    <form [formGroup]="authForm" (ngSubmit)="onSubmitForm()">
-      <label for="email"> adresse mail : </label> <input name="email" type="email" class="form-control"
-        formControlName="email">
-      <label for="password"> Mot de passe : </label> <input name="password" type="password" class="form-control"
-        formControlName="motDePasse">
-      <button type="submit" class="btn btn-primary" [disabled]="authForm.invalid">Connexion</button>
-    </form>
-  </div>
-</div>
+<form [formGroup]="authForm" (ngSubmit)="onSubmitForm()">
+  <div class="row my-3">
+    <div class="col-5">
+      <div class="input-group">
+        <label class="px-2" for="email"> Mail : </label> <input name="email" type="email" class="form-control"
+          formControlName="email">
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="input-group">
+        <label class="px-2" for="motDePasse"> Mot de passe : </label> <input name="motDePasse" type="password"
+          class="form-control" formControlName="motDePasse">
+      </div>
+    </div>
+      <div class="col-2">
+        <button type="submit" class="btn btn-primary" [disabled]="authForm.invalid">Connexion</button>
+      </div>
+    </div>
+</form>
