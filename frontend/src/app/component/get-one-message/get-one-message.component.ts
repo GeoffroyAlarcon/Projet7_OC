@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Message } from 'src/app/models/message.models';
+import { User } from 'src/app/models/user.model';
 import { ServiceMessage } from 'src/app/services/message.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,6 +15,7 @@ export class GetOneMessageComponent implements OnInit {
   message: Message;
   messages;
   answerForm: FormGroup;
+  user: any;
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -25,6 +27,7 @@ export class GetOneMessageComponent implements OnInit {
     this.route.paramMap.subscribe((value) => {
       this.id = Number.parseInt(value.get('id'));
     });
+
     this.getOnMessage();
     this.getallchild();
     this.answerForm = this.formBuilder.group({
@@ -36,6 +39,8 @@ export class GetOneMessageComponent implements OnInit {
     this.serviceMessage.getAllChild(this.id).subscribe((res) => {
       this.messages = res['messages'];
     });
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    console.log(this.user);
   }
   getOnMessage() {
     this.serviceMessage.getOneMessageById(this.id).subscribe((res) => {
@@ -54,6 +59,14 @@ export class GetOneMessageComponent implements OnInit {
     this.serviceMessage.answerMessage(messageEnfant).subscribe((res) => {
       this.getallchild();
     });
+  }
+
+  deleteMessage(id: number): void {
+    this.serviceMessage
+      .deleteMessage(id, this.user.email, this.user.motDePasse)
+      .subscribe((res) => {
+        this.getallchild();
+      });
   }
   offline() {
     this.userService.disconect();

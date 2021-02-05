@@ -25,31 +25,18 @@
 
 <div class="container">
 
-  <!-- Post Content Column -->
+
   <div class="col-lg-8">
-
-    <!-- Title -->
     <h1 class="mt-4">{{message.titre}}</h1>
-
-    <!-- Author -->
     <p class="lead">
       par {{message.user.pseudo}}
     </p>
-
     <hr>
-
-    <!-- Date/Time -->
     <p>Posté le {{message.messageDate}} </p>
-
     <hr>
-
-
-
-    <!-- Post Content -->
     <h3> Contenu : </h3>
     <p class="lead"> {{message.contenu}} </p>
 
-    <!-- Comments Form -->
     <div class="card my-4">
       <h5 class="card-header">Répondre</h5>
       <div class="card-body">
@@ -69,6 +56,8 @@
         <h5 class="mt-0">{{elt.user.pseudo}}</h5>
         {{elt.contenu}}
       </div>
+      <span *ngIf="elt.user.pseudo == user.pseudo || user.admin == 1"> <button (click)="deleteMessage(elt.id)"
+          class="btn btn-primary">supprimez</button> </span>
     </div>
 
 

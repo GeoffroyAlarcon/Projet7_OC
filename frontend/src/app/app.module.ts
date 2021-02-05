@@ -16,7 +16,7 @@ import { GetOneMessageComponent } from './component/get-one-message/get-one-mess
 import { CompteComponent } from './component/compte/compte.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { GalleryComponent } from './component/gallery/gallery.component';
-import { AuthAdminComponent } from './auth-admin/auth-admin.component';
+import { AuthAdminComponent } from './component/auth-admin/auth-admin.component';
 
 const appRoutes: Routes = [
   { path: 'newUser', component: NewUserComponent },
