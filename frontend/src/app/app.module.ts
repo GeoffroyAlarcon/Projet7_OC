@@ -15,7 +15,6 @@ import { GetAllMessageComponent } from './component/get-all-message/get-all-mess
 import { GetOneMessageComponent } from './component/get-one-message/get-one-message.component';
 import { CompteComponent } from './component/compte/compte.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-import { GalleryComponent } from './component/gallery/gallery.component';
 import { AuthAdminComponent } from './component/auth-admin/auth-admin.component';
 
 const appRoutes: Routes = [
@@ -27,9 +26,7 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     component: GetOneMessageComponent,
   },
-{  path: 'admin',
-  component: AuthAdminComponent,
-},
+  { path: 'admin', component: AuthAdminComponent },
 
   { path: 'compte', canActivate: [AuthGuard], component: CompteComponent },
   { path: 'not-found', component: FourOhFourComponent },
@@ -47,7 +44,6 @@ const appRoutes: Routes = [
     GetOneMessageComponent,
     CompteComponent,
     FourOhFourComponent,
-    GalleryComponent,
     AuthAdminComponent,
   ],
   imports: [

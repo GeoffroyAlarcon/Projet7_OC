@@ -44,6 +44,7 @@ export class NewUserComponent implements OnInit {
     this.userService.addUser(newUser).subscribe((data) => {
       this.response = data['message'];
       window.alert(this.response);
+      this.router.navigate(["/"])
     });
   }
 }
