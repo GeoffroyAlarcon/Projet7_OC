@@ -116,7 +116,7 @@ exports.deleteMessage = (req, res, next) => {
     rows.forEach((row) => {
       // on vérifie si l'utilisateur a le statut d'admninistrateur ou pas
       if (row.administrateur == 1 && row.motDePasse == req.query._motDePasse) {
-        conn.query(messageModel.deleteMessageForAdmin(), req.query._id, function (err, rows, result) {
+        conn.query(messageModel.deleteMessageForAdmin(), req.query._id, function (err,result) {
           if (err) throw err;
           if (result.affectedRows == 0) {
             return res.status(401).json({ error: ' suppression non authorisé' });

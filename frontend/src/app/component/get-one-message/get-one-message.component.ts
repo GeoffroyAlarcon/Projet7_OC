@@ -23,6 +23,7 @@ export class GetOneMessageComponent implements OnInit {
     private userService: UserService
   ) {}
   id: Number;
+  contenu: string;
   ngOnInit(): void {
     this.route.paramMap.subscribe((value) => {
       this.id = Number.parseInt(value.get('id'));
@@ -56,6 +57,7 @@ export class GetOneMessageComponent implements OnInit {
     messageEnfant.user = JSON.parse(sessionStorage.getItem('user'));
     messageEnfant.messageParent = this.message; // ajout de l'objet message pour mettre entre relation les réponses et le message initial
     console.log(messageEnfant);
+    this.contenu = '';
     this.serviceMessage.answerMessage(messageEnfant).subscribe((res) => {
       this.getallchild();
     });

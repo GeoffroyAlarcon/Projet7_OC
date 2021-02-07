@@ -1,8 +1,9 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto" *ngFor="let message of messages">
-            <h2> Liste des différents posts de vos collègues  </h2>
-            <div class="post-preview">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h2> Liste des différents posts de vos collègues </h2>
+            <hr>
+            <div class="post-preview" *ngFor="let message of messages">
                 <a [routerLink]="['message', message.id]" routerLinkActive="active">
                     <h2 class="post-title"> {{message.titre}}
                     </h2>

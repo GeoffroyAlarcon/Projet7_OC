@@ -40,10 +40,11 @@
     <div class="card-body">
       <form [formGroup]="answerForm" (ngSubmit)="onSubmitForm()">
         <div class="form-group">
-          <textarea class="form-control" id="contenu" formControlName="contenu" class="form-control"
+          <textarea class="form-control" id="contenu"  [(ngModel)]="contenu" formControlName="contenu" class="form-control"
             rows="3"></textarea>
         </div>
-        <button [disabled]="answerForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+        <button [disabled]="answerForm.invalid"  type="submit"
+          class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
