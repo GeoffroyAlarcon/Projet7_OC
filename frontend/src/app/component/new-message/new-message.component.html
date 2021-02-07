@@ -1,15 +1,17 @@
-<form [formGroup]="messageForm" (ngSubmit)="onSubmitForm()">
-  <div class="row">
-    <div class="form-group col-12 col-md-5">
-      <label for="titre">Titre </label>
-      <input type="text" id="titre" class="form-control" formControlName="titre">
-    </div>
-    <div class="form-group col-12 col-md-5">
-      <label for="contenu">Exprimez vous !</label>
-      <textarea class="form-control" id="contenu" rows="3" formControlName="contenu"></textarea>
-    </div>
-    <div class="col-md-2">
-      <button type="submit" class="btn btn-primary" [disabled]="messageForm.invalid">Envoyez</button>
-    </div>
+<div class="row">
+  <div class="col col-md-12 redGroupomania my-4 text-white">
+    <form [formGroup]="messageForm" (ngSubmit)="onSubmitForm()">
+      <div class="form-group">
+        <label for="titre">Titre </label>
+        <input type="text" id="titre" class="form-control" formControlName="titre">
+      </div>
+      <div class="form-group">
+        <label for="contenu">Votre message</label>
+        <textarea class="form-control" id="contenu" rows="3" formControlName="contenu"></textarea>
+      </div>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-success" [disabled]="messageForm.invalid">Envoyez</button>
+      </div>
+    </form>
   </div>
-</form>
+</div>

@@ -1,5 +1,5 @@
-<form [formGroup]="authForm" (ngSubmit)="onSubmitForm()">
-<h2 class="redGroupomania     redGroupomania text-center"> Connexion </h2>
+<form [formGroup]="authForm" class="bg-redGroupomania text-white my-2" (ngSubmit)="onSubmitForm()">
+<h3 class=" text-center"> Connexion </h3>
   <div class="form-group">
     <label for="email"> Mail : </label> <input name="email" type="email" class="form-control" formControlName="email"
     placeholder="Entrez votre email">
@@ -8,6 +8,7 @@
     <label class="px-2" for="motDePasse"> Mot de passe : </label> <input name="motDePasse" type="password"
       class="form-control" formControlName="motDePasse" placeholder="Entrez votre mot de passe ">
   </div>
-
-  <button type="submit" class="btn btn-primary " [disabled]="authForm.invalid">Connexion</button>
+<div class="form-group text-center">
+  <button type="submit" class="btn btn-success " [disabled]="authForm.invalid">Connexion</button>
+</div>
 </form>

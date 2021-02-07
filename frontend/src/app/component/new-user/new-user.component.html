@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark  text-center">
+<nav class="navbar navbar-expand-lg navbar-dark blueGroupomania">
   <a class="navbar-brand" href="/">Groupomania</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -12,13 +12,13 @@
     </ul>
   </div>
 </nav>
-<div class="container-fluid ">
-  <div class="col-sm-8 col-sm-offset-2">
+<div class="container  ">
+  <h2 class="text-center"> Nouvelle inscription </h2>
+  <div class="col m-4 redGroupomania text-center text-white">
     <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
       <div class="form-group">
         <label for="prenom">Prénom</label>
         <input type="text" id="prenom" class="form-control" formControlName="prenom">
-
       </div>
       <div class="form-group">
         <label for="nom">Nom</label>
@@ -45,8 +45,9 @@
           <option value="Comercial">Comercial</option>
         </select>
       </div>
-      <button type="submit" class=" m-4 btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
-
+      <div class="text-center">
+        <button type="submit" class=" m-4 btn btn-success" [disabled]="userForm.invalid">Soumettre</button>
+      </div>
     </form>
   </div>
 </div>
