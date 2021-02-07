@@ -71,6 +71,9 @@ exports.loginForAdmin = (req, res, next) => {
   const user = new User()
   conn.query(user.loginForAdmin(), [req.body.email, req.body.motDePasse], (err, rows, result) => {
     if (err) throw err;
+    if (rows.length == 0) {
+      return res.status(400).json({ error: 'utilisateur non trouvé' });
+    }
     rows.forEach((row) => {
 
       const authUser = new User(row.id, null, null, row.email, row.motDePasse, null, null, row.administrateur);
@@ -100,14 +103,16 @@ exports.deleteUser = (req, res, next) => {
   const user = new User()
   conn.query(user.deleteUser()
     , [req.query._email, req.query._motDePasse],
-    function (error, results, fields) {
-
-      if (error) {
-        return res.status(400).json(error)
+    function (error, result, fields) {
+      if (error) throw error
+      if (result.affectedRows == 0) {
+        return res.status(401).json({ error: ' suppression non authorisé' });
       }
-      return res
-        .status(200)
-        .json({ message: 'Votre compte a bien été supprimé !' })
+      else {
+        return res
+          .status(200)
+          .json({ message: 'Votre compte a bien été supprimé !' })
+      }
     }
   )
 }
