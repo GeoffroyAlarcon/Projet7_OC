@@ -16,6 +16,7 @@ import { GetOneMessageComponent } from './component/get-one-message/get-one-mess
 import { CompteComponent } from './component/compte/compte.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { AuthAdminComponent } from './component/auth-admin/auth-admin.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: 'newUser', component: NewUserComponent },
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
     CompteComponent,
     FourOhFourComponent,
     AuthAdminComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

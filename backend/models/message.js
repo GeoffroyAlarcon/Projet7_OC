@@ -17,20 +17,20 @@ class Message {
 
 
     getAll() {
-        return " select *, messages.id as messageId, utilisateur.id as utilisateurId from messages inner join utilisateur ON messages.idUtilisateur = utilisateur.id;" // ajout d'alias pour récupérer les différnets ID
+        return " select *, messages.id as messageId, utilisateur.id as utilisateurId from messages inner join utilisateur ON messages.idUtilisateur = utilisateur.id ORDER by postDate DESC;" // ajout d'alias pour récupérer les différnets ID
     }
     getallChildMessage() {
-        return "select * , messages.id as messageId, utilisateur.id as utilisateurId from messages inner join utilisateur ON messages.idUtilisateur = utilisateur.id where messages.messageParent = ?"
+        return "select * , messages.id as messageId, utilisateur.id as utilisateurId from messages inner join utilisateur ON messages.idUtilisateur = utilisateur.id where messages.messageParent = ? ORDER by postDate DESC;"
     }
     getOneMessageById() {
-        return " select *, messages.id as messageId, utilisateur.id as utilisateurId from messages inner join utilisateur on messages.idUtilisateur = utilisateur.id  where messages.id = ? " // ajout d'alias pour récupérer le message par son ID
+        return " select *, messages.id as messageId, utilisateur.id as utilisateurId from messages inner join utilisateur on messages.idUtilisateur = utilisateur.id  where messages.id = ?; " // ajout d'alias pour récupérer le message par son ID
     }
     deleteMessage() {
-        return "delete messages from messages inner join utilisateur ON  messages.idUtilisateur = utilisateur.id  where messages.id = ? and utilisateur.motDePasse = ? and utilisateur.email = ?"
+        return "delete messages from messages inner join utilisateur ON  messages.idUtilisateur = utilisateur.id  where messages.id = ? and utilisateur.motDePasse = ? and utilisateur.email = ?;"
     }
 
     deleteMessageForAdmin() {
-        return "delete messages from messages  where messages.id = ?"
+        return "delete messages from messages  where messages.id = ?;"
     }
 
 }

@@ -61,22 +61,22 @@ export class ServiceMessage {
     );
   }
 
-  getOneMessageById(id: Number) {
+  getOneMessageById(id: Number):Observable<Message> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
     });
-    return this.httpClient.get(
+    return this.httpClient.get<Message>(
       'http://localhost:3000/api/message/getOneMessage/?_id=' + id,
       { headers: headers }
     );
   }
-  getAllChild(id: Number) {
+  getAllChild(id: Number): Observable<Array<Message>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`,
     });
-    return this.httpClient.get(
+    return this.httpClient.get<Array<Message>>(
       'http://localhost:3000/api/message/getAllMessageChild/?_id=' + id,
       { headers: headers }
     );

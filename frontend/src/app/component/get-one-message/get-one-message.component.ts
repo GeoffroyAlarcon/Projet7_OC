@@ -13,17 +13,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class GetOneMessageComponent implements OnInit {
   message: Message;
-  messages;
+  messages: Array<Message>;
   answerForm: FormGroup;
-  user: any;
+  user: User;
+  id: Number;
+  contenu: string;
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private serviceMessage: ServiceMessage,
     private userService: UserService
   ) {}
-  id: Number;
-  contenu: string;
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((value) => {
       this.id = Number.parseInt(value.get('id'));
