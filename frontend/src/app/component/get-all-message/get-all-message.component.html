@@ -1,10 +1,10 @@
-<div class="row text-center">
+<div class="row text-center my-4 py-4">
     <div class=" col mx-auto">
         <h2> Liste des différents posts de vos collègues </h2>
         <hr>
         <div class="post-preview" *ngFor="let message of messages">
             <a [routerLink]="['message', message.id]" routerLinkActive="active">
-                <h2 class="post-title"> {{message.titre}}
+                <h2 class="post-title redGroupomania"> {{message.titre}}
                 </h2>
             </a>
 

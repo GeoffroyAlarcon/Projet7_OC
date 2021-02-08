@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-dark blueGroupomania">
+<nav class="navbar navbar-expand-lg navbar-dark blueGroupomania">
   <a class="navbar-brand" routerLink="/homePage">Groupomania</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -18,11 +18,9 @@
     </ul>
   </div>
 </nav>
-
-
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col">
       <h1 class="mt-4">{{message.titre}}</h1>
       <p class="lead">
         par {{message.user.pseudo}}
@@ -34,33 +32,28 @@
       <p class="lead"> {{message.contenu}} </p>
     </div>
   </div>
-
-  <div class="card my-4">
-    <h5 class="card-header">Répondre</h5>
-    <div class="card-body">
+  <div class=" row bg-redGroupomania text-white text-center ">
+    <div class="col">
+      <h5 class="card-header">Répondre</h5>
       <form [formGroup]="answerForm" (ngSubmit)="onSubmitForm()">
         <div class="form-group">
-          <textarea class="form-control" id="contenu"  [(ngModel)]="contenu" formControlName="contenu" class="form-control"
-            rows="3"></textarea>
+          <textarea class="form-control" id="contenu" [(ngModel)]="contenu" formControlName="contenu"
+            class="form-control" rows="3"></textarea>
         </div>
-        <button [disabled]="answerForm.invalid"  type="submit"
-          class="btn btn-primary">Submit</button>
+        <button [disabled]="answerForm.invalid" type="submit" class="btn btn btn-light">Submit</button>
       </form>
     </div>
   </div>
-</div>
 
-<div class="card w-75">
-  <div class="card-body" *ngFor=" let elt of messages">
-    <h5 class=" card-title"> {{elt.user.pseudo}}</h5>
-
-    <p class="card-text"> {{elt.contenu}}</p>
-    <span *ngIf="elt.user.pseudo == user.pseudo || user.admin == 1"> <button (click)="deleteMessage(elt.id)"
-        class="btn btn-primary">supprimez</button> </span>
+  <div class="card my-5" *ngFor=" let elt of messages">
+    <div class="card-body">
+      <h5 class=" card-title redGroupomania"> {{elt.user.pseudo}}</h5>
+      <p class="card-text"> {{elt.contenu}}</p>
+      <span *ngIf="elt.user.pseudo == user.pseudo || user.admin == 1"> <button (click)="deleteMessage(elt.id)"
+          class="btn btn-primary">supprimez</button> </span>
+    </div>
   </div>
 </div>
-
-
 
 
 

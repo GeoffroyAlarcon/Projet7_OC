@@ -12,9 +12,9 @@
     </ul>
   </div>
 </nav>
-<div class="container  ">
+<div class="container ">
   <h2 class="text-center"> Nouvelle inscription </h2>
-  <div class="col m-4 redGroupomania text-center text-white">
+  <div class="col bg-redGroupomania text-center text-white">
     <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
       <div class="form-group">
         <label for="prenom">Prénom</label>
@@ -46,8 +46,9 @@
         </select>
       </div>
       <div class="text-center">
-        <button type="submit" class=" m-4 btn btn-success" [disabled]="userForm.invalid">Soumettre</button>
+        <button type="submit" class=" m-4 btn btn-light" [disabled]="userForm.invalid">Soumettre</button>
       </div>
     </form>
   </div>
 </div>
+

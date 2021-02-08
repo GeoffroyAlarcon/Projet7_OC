@@ -1,35 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark  text-center">
+<nav class="navbar navbar-expand-lg navbar-dark blueGroupomania">
+
   <a class="navbar-brand" href="/">Groupomania</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 </nav>
+
 <div class=" container text-center">
   <div class="row">
-    <form [formGroup]="authForm" (ngSubmit)="onSubmitForm()">
-      <div class="row my-3">
-        <div class=" col-12 col-md-5">
-          <div class="input-group">
-            <label class="px-2" for="email"> Mail : </label> <input name="email" type="email" class="form-control"
-              formControlName="email">
-          </div>
+    <div class="col">
+      <form [formGroup]="authForm" class="bg-redGroupomania text-white my-2" (ngSubmit)="onSubmitForm()">
+        <h3> Connexion </h3>
+        <div class="form-group">
+          <label for="email"> Mail : </label> <input name="email" type="email" class="form-control"
+            formControlName="email" placeholder="Entrez votre email">
         </div>
-        <div class="col-12 col-md-5">
-          <div class="input-group">
-            <label class="px-2" for="motDePasse"> Mot de passe : </label> <input name="motDePasse" type="password"
-              class="form-control" formControlName="motDePasse">
-          </div>
+        <div class="form-group">
+          <label class="px-2" for="motDePasse"> Mot de passe : </label> <input name="motDePasse" type="password"
+            class="form-control" formControlName="motDePasse" placeholder="Entrez votre mot de passe ">
         </div>
-        <div class="col-2">
-          <button type="submit" class="btn btn-primary" [disabled]="authForm.invalid">Connexion</button>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-light" [disabled]="authForm.invalid">Connexion</button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
   <div class="row">
-    <div class="offset-5">
-      <img src="../../../assets/Webp.net-resizeimage (6).png" class="img-fluid" alt="">
+    <div class=" col-md-5 offset-md-3">
+      <img src="../../../assets/icon-left-font.png" class="img-fluid" alt="">
     </div>
   </div>
 </div>
+<app-footer></app-footer>

@@ -21,29 +21,29 @@
 </nav>
 
 
-<div class="container-fluid">
-    <div class="card-body">
-        <form #monForm=ngForm (ngSubmit)="deleteAccount()">
+<div class="container bg-redGroupomania text-white ">
+    <div class="row  py-4 my-4 text-center">
+        <div class="col">
+            <form #monForm=ngForm (ngSubmit)="deleteAccount()">
+                <div class="form-group">
+                  <label for="nom"> Nom :</label>  <input class="col"  type=text name=nom [(ngModel)]=user.nom required #nom="ngModel">
+                </div>
+                <div class="form-group">
+                <label for="prenom">Prenom :</label> <input class="col"  type=text name=prenom [(ngModel)]=user.prenom required #prenom="ngModel">
+                </div>
+                <div class="form-group">
+                    <label for="pseudo">Pseudo :</label> <input class="col" type=text name=pseudo [(ngModel)]=user.pseudo required #pseudo="ngModel">
+                </div>
+                <div class="form-group">
+                <label for="_email">   AdresseMail : </label>  <input class="col" type=text name=_email [(ngModel)]=user.email required #email="ngModel">
+                </div>
 
-            <div class="form-group">
-                Nom : <input type=text name=nom [(ngModel)]=user.nom required #nom="ngModel">
-            </div>
-            <div class="form-group">
-                Prénom : <input type=text name=prenom [(ngModel)]=user.prenom required #prenom="ngModel">
-            </div>
-            <div class="form-group">
-                Pseudo : <input type=text name=pseudo [(ngModel)]=user.pseudo required #pseudo="ngModel">
-            </div>
-            <div class="form-group">
-                adresseMail : <input type=text name=_email [(ngModel)]=user.email required #email="ngModel">
-            </div>
-
-            <div class="form-group">
-                <button class='btn btn-primary' [disabled]=!monForm.valid>
-                    Supprimer le compte
-                </button>
-            </div>
-
-        </form>
+                <div class="text-center">
+                    <button class='btn btn-light' [disabled]=!monForm.valid>
+                        Supprimer le compte
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
